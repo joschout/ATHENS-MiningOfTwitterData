@@ -36,7 +36,7 @@ public class Filter {
 			for(HashTag hashtag : tweet.hashtags){
 				for(int i = (tweet.hashtags.indexOf(hashtag) + 1); i < tweet.hashtags.size(); ++i){
 					if(!graph.containsEdge(hashtag, tweet.hashtags.get(i))){
-						System.out.println(hashtag + " <-----> " + tweet.hashtags.get(i));
+						//System.out.println(hashtag + " <-----> " + tweet.hashtags.get(i));
 						graph.addEdge(hashtag, tweet.hashtags.get(i));
 						DefaultWeightedEdge edge = graph.getEdge(hashtag, tweet.hashtags.get(i));
 						graph.setEdgeWeight(edge, 1);
@@ -44,7 +44,7 @@ public class Filter {
 					else{
 						DefaultWeightedEdge edge = graph.getEdge(hashtag, tweet.hashtags.get(i));
 						graph.setEdgeWeight(edge, (graph.getEdgeWeight(edge) + 1));
-						System.out.println(hashtag + " <-----> " + tweet.hashtags.get(i) + "                   X " + (graph.getEdgeWeight(edge) + 1));
+						//System.out.println(hashtag + " <-----> " + tweet.hashtags.get(i) + "                   X " + (graph.getEdgeWeight(edge) + 1));
 					}
 				}
 			}

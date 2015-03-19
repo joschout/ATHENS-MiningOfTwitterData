@@ -7,18 +7,25 @@ import java.util.TreeSet;
 
 public class Tweet {
 
+	public final long tweetId;
+	public final long userId;
+	public final String text;
 	public final List<HashTag> hashtags;
 	
-	public Tweet(List<HashTag> hashtags){
+	public Tweet(long tweetId, long userId, String text, List<HashTag> hashtags){
+		this.tweetId = tweetId;
+		this.userId = userId;
+		this.text = text;
 		Set<HashTag> sortedHashtags = new TreeSet<HashTag>(hashtags);
 		this.hashtags = new ArrayList<HashTag>(sortedHashtags);
 	}
 	
 	@Override
 	public String toString(){
-		String result = "Tweet:";
+		String result = "Tweet " + this.tweetId + " by user " + this.userId + ":\n";
+		result += this.text + "\n";
 		for(HashTag hashtag : this.hashtags){
-			result += " " + hashtag;
+			result += hashtag + " ";
 		}
 		return result;
 	}

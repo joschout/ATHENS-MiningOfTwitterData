@@ -14,6 +14,7 @@ import preprocessing.Filter;
 import preprocessing.JsonParser;
 import tweets.HashTag;
 import tweets.Tweet;
+import utils.Timer;
 
 public class Main {
 	
@@ -21,7 +22,12 @@ public class Main {
 
 		JsonParser parser = new JsonParser("data");
 		Filter filter = new Filter(parser.parseFile("test"));
-		SimpleWeightedGraph<HashTag, DefaultWeightedEdge> graph = filter.createWeightedGraph();
+		SimpleWeightedGraph graph = filter.createWeightedGraph();
+//		Timer parseTimer = new Timer("parsing the files");
+//		parseTimer.start();
+//		//Filter filter = new Filter(parser.parseAllFiles());
+//		parseTimer.stop();
+
 		
 //		for(Tweet tweet : filter.tweets){
 //			//System.out.print(tweet + "\n-----------------------------\n");

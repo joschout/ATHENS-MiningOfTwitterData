@@ -18,7 +18,7 @@ public class Tweet {
 	public String toString(){
 		String result = "Tweet:";
 		for(HashTag hashtag : this.hashtags){
-			result += "\n" + hashtag;
+			result += " " + hashtag;
 		}
 		return result;
 	}

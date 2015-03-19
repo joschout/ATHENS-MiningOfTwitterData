@@ -48,6 +48,7 @@ public class JsonParser {
 	  for(Object hashTag : hashTags){
 		  hashtags.add(new HashTag(((JSONObject) hashTag).get("text").toString()));
 	  }
-	  tweets.add(new Tweet(hashtags));
+	  if(!hashtags.isEmpty())
+		  tweets.add(new Tweet(hashtags));
 	}
 }

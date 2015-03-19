@@ -43,12 +43,12 @@ public class JsonParser {
 
 	  JSONObject parsedLine = (JSONObject) JSONValue.parse(line);
 	  JSONObject entities = (JSONObject) parsedLine.get("entities");
-	  JSONArray hashTags = (JSONArray) entities.get("hashtags");
-	  List<HashTag> hashtags = new ArrayList<HashTag>();
-	  for(Object hashTag : hashTags){
-		  hashtags.add(new HashTag(((JSONObject) hashTag).get("text").toString()));
+	  JSONArray hashtags = (JSONArray) entities.get("hashtags");
+	  List<HashTag> parsedHashtags = new ArrayList<HashTag>();
+	  for(Object hashTag : hashtags){
+		  parsedHashtags.add(new HashTag(((JSONObject) hashTag).get("text").toString()));
 	  }
-	  if(!hashtags.isEmpty())
-		  tweets.add(new Tweet(hashtags));
+	  if(!parsedHashtags.isEmpty())
+		  tweets.add(new Tweet(parsedHashtags));
 	}
 }

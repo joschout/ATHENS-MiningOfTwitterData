@@ -27,4 +27,9 @@ public class HashTag implements Comparable<HashTag> {
 		return this.text.compareTo(other.text);
 	}
 	
+	@Override
+	public int hashCode(){
+		return this.text.hashCode();
+	}
+	
 }

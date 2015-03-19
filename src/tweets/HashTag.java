@@ -6,7 +6,7 @@ public class HashTag implements Comparable<HashTag> {
 	private final String text;
 	
 	public HashTag(String text){
-		this.text = text;
+		this.text = text.toLowerCase();
 	}
 	
 	@Override

@@ -19,7 +19,6 @@ public class JsonParser {
 	public static final Charset CHARSET = Charset.forName("UTF-8");
 	public final String directory;
 
-	
 	public JsonParser(String directory){
 		this.directory = directory;
 	}

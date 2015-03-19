@@ -19,8 +19,14 @@ public class WeightedDensityManager<V, E> implements DensityManager<V, E> {
 	 */
 	@Override
 	public double getDensity(Graph<V, E> graph) {
+		double  numberOfVertices = (double)graph.vertexSet().size();
 		
-		
+		Set<E> sumOfWeightsOfEachEdge = graph.edgeSet();
+		double degree = 0;
+		for(E edge: sumOfWeightsOfEachEdge){
+			degree += graph.getEdgeWeight(edge);
+		}
+		return degree/numberOfVertices;
 	}
 
 	/**

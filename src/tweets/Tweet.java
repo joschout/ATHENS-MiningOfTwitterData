@@ -80,7 +80,7 @@ public class Tweet {
 	}
 	
 	private boolean approximatelyEqual(KeyWord first, KeyWord second){
-		return false;
+		return (hammingDistance(first.text, second.text) <= 2);
 	}
 	
 	private int hammingDistance(String firstWord, String secondWord){

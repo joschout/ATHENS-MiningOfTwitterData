@@ -1,12 +1,10 @@
 package main;
 
 import graphProcessing.CircularFifoQueue;
-import graphProcessing.DensityManager;
 import graphProcessing.SubgraphManager;
 import graphProcessing.WeightedDensityManager;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
@@ -14,8 +12,6 @@ import org.jgrapht.graph.SimpleWeightedGraph;
 import preprocessing.Filter;
 import preprocessing.JsonParser;
 import tweets.KeyWord;
-import tweets.Text;
-import tweets.Tweet;
 import utils.Timer;
 
 public class Main {
@@ -30,7 +26,7 @@ public class Main {
 		JsonParser parser = new JsonParser("data");
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
-		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23"));
+		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23", true));
 		parseTimer.stop();
 	}
 
@@ -68,7 +64,7 @@ public class Main {
 		JsonParser parser = new JsonParser("data");
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
-		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-24"));
+		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-24", true));
 		parseTimer.stop();
 		SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
 		

@@ -14,9 +14,10 @@ public class Text {
 	public final String content;
 	public final List<Word> words = new ArrayList<Word>();
 	
-	public Text(String content){
+	public Text(String content, boolean parseContent){
 		this.content = content.toLowerCase();
-		parseContent();
+		if(parseContent)
+			parseContent();
 	}
 	
 	private void parseContent(){

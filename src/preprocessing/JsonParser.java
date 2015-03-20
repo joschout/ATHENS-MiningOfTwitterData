@@ -14,7 +14,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import tweets.HashTag;
-import tweets.KeyWord;
 import tweets.Text;
 import tweets.Tweet;
 import utils.Timer;
@@ -38,9 +37,8 @@ public class JsonParser {
 		BufferedReader reader = Files.newBufferedReader(file, JsonParser.CHARSET);
 	    String line = reader.readLine();
 	    List<Tweet> tweets = new ArrayList<Tweet>();
-	    List<KeyWord> keywords = new ArrayList<KeyWord>();
 	    while (line != null){
-	    	parseLine(line, tweets, keywords);
+	    	parseLine(line, tweets);
 	    	line = reader.readLine();
 	    }
 	    
@@ -73,7 +71,7 @@ public class JsonParser {
 		
 	}
 	
-	private void parseLine(String line, List<Tweet> tweets, List<KeyWord> alreadyCreatedKeywords){
+	private void parseLine(String line, List<Tweet> tweets){
 
 	  JSONObject parsedLine = (JSONObject) JSONValue.parse(line);
 	  
@@ -93,6 +91,6 @@ public class JsonParser {
 	  }
 
 	  if(!parsedHashtags.isEmpty())
-		  tweets.add(new Tweet(parsedTweetId, parsedUserId, parsedText, parsedHashtags, alreadyCreatedKeywords));
+		  tweets.add(new Tweet(parsedTweetId, parsedUserId, parsedText, parsedHashtags));
 	}
 }

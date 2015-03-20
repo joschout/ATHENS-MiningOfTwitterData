@@ -11,15 +11,13 @@ public class Tweet {
 	public final long userId;
 	public final Text text;
 	public final List<HashTag> hashtags;
-	public final List<KeyWord> keywords;
 	
-	public Tweet(long tweetId, long userId, Text text, List<HashTag> hashtags, List<KeyWord> alreadyCreatedKeywords){
+	public Tweet(long tweetId, long userId, Text text, List<HashTag> hashtags){
 		this.tweetId = tweetId;
 		this.userId = userId;
 		this.text = text;
-		this.hashtags = hashtags;
-		this.keywords = getKeyWords(alreadyCreatedKeywords);
-		System.out.println(this.keywords);
+		Set<HashTag> sortedHashtags = new TreeSet<HashTag>(hashtags);
+		this.hashtags = new ArrayList<HashTag>(sortedHashtags);
 	}
 	
 	@Override
@@ -37,43 +35,12 @@ public class Tweet {
 		if(this.getClass() != other.getClass()){
 			throw new UnsupportedOperationException("Tweets cannot be compared to other objects through \"equals()\" method");
 		}
-		return (this.keywords.equals(((Tweet)other).keywords));
+		return (this.hashtags.equals(((Tweet)other).hashtags));
 	}
 	
 	@Override
 	public int hashCode(){
-		return this.keywords.hashCode();
-	}
-	
-	private List<KeyWord> getKeyWords(List<KeyWord> alreadyCreatedKeywords){
-		Set<KeyWord> keywords = new TreeSet<KeyWord>();
-		for(HashTag hashtag : this.hashtags){
-			KeyWord keyword;
-			if(alreadyCreatedKeywords.contains(hashtag)){
-				keyword = alreadyCreatedKeywords.get(alreadyCreatedKeywords.indexOf(hashtag));
-				keyword.addTweet(this);
-			}
-			else{
-				keyword = hashtag;
-				keyword.addTweet(this);
-				alreadyCreatedKeywords.add(keyword);
-			}
-			keywords.add(keyword);
-		}
-		for(Word word : this.text.words){
-			KeyWord keyword;
-			if(alreadyCreatedKeywords.contains(word)){
-				keyword = alreadyCreatedKeywords.get(alreadyCreatedKeywords.indexOf(word));
-				keyword.addTweet(this);
-			}
-			else{
-				keyword = word;
-				keyword.addTweet(this);
-				alreadyCreatedKeywords.add(keyword);
-			}
-			keywords.add(keyword);
-		}
-		return new ArrayList<KeyWord>(keywords);
+		return this.hashtags.hashCode();
 	}
 	
 }

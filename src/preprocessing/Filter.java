@@ -28,15 +28,11 @@ public class Filter {
 	public SimpleWeightedGraph<KeyWord,DefaultWeightedEdge> createWeightedGraph(){
 		removeDuplicates();
 		SimpleWeightedGraph<KeyWord,DefaultWeightedEdge> graph = new SimpleWeightedGraph<KeyWord,DefaultWeightedEdge>(DefaultWeightedEdge.class);
-		
-		/*for(Tweet tweet : this.tweets){
+		for(Tweet tweet : this.tweets){
 			for(KeyWord keyword : tweet.keywords){
-				if(graph.containsVertex(keyword)){
-				}
 				graph.addVertex(keyword);
 			}
-		}*/
-		
+		}
 		for(Tweet tweet : this.tweets){
 			for(KeyWord keyword : tweet.keywords){
 				for(int i = (tweet.keywords.indexOf(keyword) + 1); i < tweet.keywords.size(); ++i){

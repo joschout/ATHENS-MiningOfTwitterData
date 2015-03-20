@@ -39,9 +39,11 @@ public class JsonParser {
 	    String line = reader.readLine();
 	    List<Tweet> tweets = new ArrayList<Tweet>();
 	    List<KeyWord> keywords = new ArrayList<KeyWord>();
-	    while (line != null){
+	    int counter = 0;
+	    while (counter < 100 && line != null){
 	    	parseLine(line, tweets, keywords);
 	    	line = reader.readLine();
+	    	++counter;
 	    }
 	    
 		parseTimer.stop();

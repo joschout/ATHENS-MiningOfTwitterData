@@ -8,4 +8,8 @@ public class Text {
 		this.content = content;
 	}
 	
+	private void extractKeyWords(){
+		String testString;
+	}
+	
 }

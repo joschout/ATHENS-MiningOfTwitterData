@@ -19,7 +19,15 @@ import utils.Timer;
 public class Main {
 	
 	public static void main(String[] args) throws IOException{
+		//testGraph();
+		testStanfordLib();
+	}
+	
+	private static void testStanfordLib(){
+		
+	}
 
+	private static void testGraph() throws IOException{
 		JsonParser parser = new JsonParser("data//oscars");
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
@@ -48,5 +56,5 @@ public class Main {
 			System.out.println("edges: " +edge.toString());
 		}
 	}
-
+	
 }

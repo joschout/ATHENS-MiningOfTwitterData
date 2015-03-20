@@ -61,7 +61,7 @@ public class Main {
 //	}
 	
 	private static void testGraphMultiplePrints() throws IOException{
-		JsonParser parser = new JsonParser("data//ParisSearchFeb");
+		JsonParser parser = new JsonParser("data//Oscars");
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
 		Filter filter = new Filter(parser.parseAllFiles(false));

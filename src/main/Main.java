@@ -34,35 +34,35 @@ public class Main {
 		parseTimer.stop();
 	}
 
-	private static void testGraph() throws IOException{
-		JsonParser parser = new JsonParser("data");
-		Timer parseTimer = new Timer("parsing the files");
-		parseTimer.start();
-		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23"));
-		parseTimer.stop();
-		SimpleWeightedGraph<HashTag, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
-//		
-//		//Filter filter = new Filter(parser.parseAllFiles());
+//	private static void testGraph() throws IOException{
+//		JsonParser parser = new JsonParser("data");
+//		Timer parseTimer = new Timer("parsing the files");
+//		parseTimer.start();
+//		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23"));
 //		parseTimer.stop();
-
-		
-//		for(Tweet tweet : filter.tweets){
-//			//System.out.print(tweet + "\n-----------------------------\n");
+//		SimpleWeightedGraph<HashTag, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
+////		
+////		//Filter filter = new Filter(parser.parseAllFiles());
+////		parseTimer.stop();
+//
+//		
+////		for(Tweet tweet : filter.tweets){
+////			//System.out.print(tweet + "\n-----------------------------\n");
+////		}
+//		
+//		DensityManager<HashTag, DefaultWeightedEdge> densityManager = new WeightedDensityManager<HashTag, DefaultWeightedEdge>();
+//		SubgraphManager subgraphManager = new SubgraphManager();
+//		SimpleWeightedGraph<HashTag, DefaultWeightedEdge> densestSubgraph = subgraphManager.getDensestSubgraph3(graph, densityManager);
+//		
+//		System.out.println("vertexset: "+densestSubgraph.vertexSet().toString());
+//		
+//		for(HashTag vertex: densestSubgraph.vertexSet()){
+//			System.out.println(vertex.toString() +": " + densityManager.getDegreeOfVertex(vertex, densestSubgraph));
 //		}
-		
-		DensityManager<HashTag, DefaultWeightedEdge> densityManager = new WeightedDensityManager<HashTag, DefaultWeightedEdge>();
-		SubgraphManager subgraphManager = new SubgraphManager();
-		SimpleWeightedGraph<HashTag, DefaultWeightedEdge> densestSubgraph = subgraphManager.getDensestSubgraph3(graph, densityManager);
-		
-		System.out.println("vertexset: "+densestSubgraph.vertexSet().toString());
-		
-		for(HashTag vertex: densestSubgraph.vertexSet()){
-			System.out.println(vertex.toString() +": " + densityManager.getDegreeOfVertex(vertex, densestSubgraph));
-		}
-		for(DefaultWeightedEdge edge: densestSubgraph.edgeSet()){
-			System.out.println("edges: " +edge.toString());
-		}	
-	}
+//		for(DefaultWeightedEdge edge: densestSubgraph.edgeSet()){
+//			System.out.println("edges: " +edge.toString());
+//		}	
+//	}
 	
 	private static void testGraphMultiplePrints() throws IOException{
 		JsonParser parser = new JsonParser("data");
@@ -74,7 +74,7 @@ public class Main {
 		
 		WeightedDensityManager<HashTag, DefaultWeightedEdge> densityManager = new WeightedDensityManager<HashTag, DefaultWeightedEdge>();
 		SubgraphManager subgraphManager = new SubgraphManager();
-		CircularFifoQueue<SimpleWeightedGraph<HashTag, DefaultWeightedEdge>> queue = subgraphManager.getDensestSubgraph4(graph, densityManager);
+		CircularFifoQueue<SimpleWeightedGraph<HashTag, DefaultWeightedEdge>> queue = subgraphManager.getDensestSubgraphs(graph, densityManager);
 		
 
 		for (Iterator<SimpleWeightedGraph<HashTag, DefaultWeightedEdge>> iter = queue.iterator(); iter.hasNext(); ) {

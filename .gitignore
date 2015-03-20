@@ -1,4 +1,5 @@
 *.class
+*.txt
 /taggers
 
 # Mobile Tools for Java (J2ME)

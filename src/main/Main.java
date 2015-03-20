@@ -68,7 +68,7 @@ public class Main {
 		JsonParser parser = new JsonParser("data");
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
-		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23"));
+		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-24"));
 		parseTimer.stop();
 		SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
 		
@@ -77,21 +77,21 @@ public class Main {
 		CircularFifoQueue<SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>> queue = subgraphManager.getDensestSubgraphs(graph, densityManager);
 		
 
-		for (Iterator<SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>> iter = queue.iterator(); iter.hasNext(); ) {
-			SimpleWeightedGraph<KeyWord, DefaultWeightedEdge> tempDensestSubgraph = iter.next();
-			System.out.println("\n" + "//=== Start of new temp densest subgraph ===//");
-			System.out.println("vertexset: "+tempDensestSubgraph.vertexSet().toString());
-			
-			for(KeyWord vertex: tempDensestSubgraph.vertexSet()){
-				System.out.println(vertex.toString() +": " + densityManager.getDegreeOfVertex(vertex, tempDensestSubgraph));
-			}
-			for(DefaultWeightedEdge edge: tempDensestSubgraph.edgeSet()){
-				System.out.println("edges: " +edge.toString());
-			}
-			System.out.println("//=== End of new temp densest subgraph ===//" +"\n");
-		}
+//		for (Iterator<SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>> iter = queue.iterator(); iter.hasNext(); ) {
+//			SimpleWeightedGraph<KeyWord, DefaultWeightedEdge> tempDensestSubgraph = iter.next();
+//			System.out.println("\n" + "//=== Start of new temp densest subgraph ===//");
+//			System.out.println("vertexset: "+tempDensestSubgraph.vertexSet().toString());
+//			
+//			for(KeyWord vertex: tempDensestSubgraph.vertexSet()){
+//				System.out.println(vertex.toString() +": " + densityManager.getDegreeOfVertex(vertex, tempDensestSubgraph));
+//			}
+//			for(DefaultWeightedEdge edge: tempDensestSubgraph.edgeSet()){
+//				System.out.println("edges: " +edge.toString());
+//			}
+//			System.out.println("//=== End of new temp densest subgraph ===//" +"\n");
+//		}
 		
-		
+		subgraphManager.printSubgraphsToFile(densityManager);
 		
 	}
 	

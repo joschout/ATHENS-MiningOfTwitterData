@@ -40,7 +40,7 @@ public class JsonParser {
 	    List<Tweet> tweets = new ArrayList<Tweet>();
 	    List<KeyWord> keywords = new ArrayList<KeyWord>();
 	    //int counter = 0;
-	    //while (counter < 100 && line != null){
+	    //while (counter < 1000 && line != null){
 	    while (line != null){
 	    	parseLine(line, tweets, keywords, parseText);
 	    	line = reader.readLine();

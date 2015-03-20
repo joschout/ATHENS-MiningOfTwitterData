@@ -1,7 +1,12 @@
 package graphProcessing;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -11,6 +16,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
 import tweets.KeyWord;
+import tweets.Tweet;
 
 public class SubgraphManager {
 
@@ -371,6 +377,47 @@ public class SubgraphManager {
 		}
 	}
 	
+	public void printSubgraphsToFile(DensityManager densityManager) throws IOException{
+		File file = new File("/subgraph");
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		String text = "This file contains the results from a run of the Densest Subgraph algoritm. \n"
+				+ "";
+		int denseSubgraphNb = densestSubgraphQueue.size();
+		
+		for (Iterator<SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>> iter = densestSubgraphQueue.iterator(); iter.hasNext(); ) {
+			SimpleWeightedGraph<KeyWord, DefaultWeightedEdge> sub = iter.next();
+			text = text + "#=== Dense subgraph number: "+ denseSubgraphNb + "===# \n";
+			text = text + "Density of the graph: " + densityManager.getDensity(sub) + " \n";
+			
+			
+			int nrOfusers = 0;
+			int nrOfTweets =0;
+			Set<Long> userIds = new HashSet<Long>();
+			Set<Long> tweetIds = new HashSet<Long>();
+			
+			for(KeyWord word: sub.vertexSet()){
+				for(Tweet tweet: word.tweets){
+					long uID = tweet.userId;
+					if (!userIds.contains(uID)) {
+						nrOfusers ++;
+						userIds.add(uID);
+					}
+					long twID = tweet.tweetId;
+					if (!tweetIds.contains(twID)) {
+						nrOfTweets ++;
+						tweetIds.add(twID);
+					}					
+				}
+			}
+			
+			text = text + "Number of distinct users who contributed to the creation of the subgraph: " + nrOfusers+ " \n";
+			text = text + "Number of distinct tweets from which the subgraph emerged: "+ nrOfTweets+ " \n";
+			text = text + "#=========================================================#" + " \n";
+		}
+		
+		writer.write(text);
+		writer.close();
+	}
 	
 	
 }

@@ -21,7 +21,7 @@ public class Text {
 	
 	private void parseContent(){
 		FileSystem defaultFileSystem = FileSystems.getDefault();
-    	Path path = defaultFileSystem.getPath(Text.TAGGER_DIRECTORY, "/english-left3words-distsim" + ".tagger");
+    	Path path = defaultFileSystem.getPath(Text.TAGGER_DIRECTORY, "//english-left3words-distsim" + ".tagger");
 		MaxentTagger tagger = new MaxentTagger(path.toString());
 		String tagged = tagger.tagString(this.content);
 		parseWords(tagged);

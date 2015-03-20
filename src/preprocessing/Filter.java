@@ -9,6 +9,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
 import tweets.HashTag;
+import tweets.KeyWord;
 import tweets.Tweet;
 
 public class Filter {
@@ -24,25 +25,29 @@ public class Filter {
 		this.tweets = new ArrayList<Tweet>(distinctTweets);
 	}
 	
-	public SimpleWeightedGraph<HashTag,DefaultWeightedEdge> createWeightedGraph(){
+	public SimpleWeightedGraph<KeyWord,DefaultWeightedEdge> createWeightedGraph(){
 		removeDuplicates();
-		SimpleWeightedGraph<HashTag,DefaultWeightedEdge> graph = new SimpleWeightedGraph<HashTag,DefaultWeightedEdge>(DefaultWeightedEdge.class);
-		for(Tweet tweet : this.tweets){
-			for(HashTag hashtag : tweet.hashtags){
-				graph.addVertex(hashtag);
+		SimpleWeightedGraph<KeyWord,DefaultWeightedEdge> graph = new SimpleWeightedGraph<KeyWord,DefaultWeightedEdge>(DefaultWeightedEdge.class);
+		
+		/*for(Tweet tweet : this.tweets){
+			for(KeyWord keyword : tweet.keywords){
+				if(graph.containsVertex(keyword)){
+				}
+				graph.addVertex(keyword);
 			}
-		}
+		}*/
+		
 		for(Tweet tweet : this.tweets){
-			for(HashTag hashtag : tweet.hashtags){
-				for(int i = (tweet.hashtags.indexOf(hashtag) + 1); i < tweet.hashtags.size(); ++i){
-					if(!graph.containsEdge(hashtag, tweet.hashtags.get(i))){
+			for(KeyWord keyword : tweet.keywords){
+				for(int i = (tweet.keywords.indexOf(keyword) + 1); i < tweet.keywords.size(); ++i){
+					if(!graph.containsEdge(keyword, tweet.keywords.get(i))){
 						//System.out.println(hashtag + " <-----> " + tweet.hashtags.get(i));
-						graph.addEdge(hashtag, tweet.hashtags.get(i));
-						DefaultWeightedEdge edge = graph.getEdge(hashtag, tweet.hashtags.get(i));
+						graph.addEdge(keyword, tweet.keywords.get(i));
+						DefaultWeightedEdge edge = graph.getEdge(keyword, tweet.keywords.get(i));
 						graph.setEdgeWeight(edge, 1);
 					}
 					else{
-						DefaultWeightedEdge edge = graph.getEdge(hashtag, tweet.hashtags.get(i));
+						DefaultWeightedEdge edge = graph.getEdge(keyword, tweet.keywords.get(i));
 						graph.setEdgeWeight(edge, (graph.getEdgeWeight(edge) + 1));
 						//System.out.println(hashtag + " <-----> " + tweet.hashtags.get(i) + "                   X " + (graph.getEdgeWeight(edge) + 1));
 					}

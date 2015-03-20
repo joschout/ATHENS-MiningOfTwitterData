@@ -27,7 +27,8 @@ public abstract class KeyWord implements Comparable<KeyWord> {
 	
 	@Override
 	public boolean equals(Object other){
-		return (this.text.equals(((KeyWord)other).text));
+		//return (this.text.equals(((KeyWord)other).text));
+		return approximatelyEqual(this, (KeyWord)other);
 	}
 	
 	
@@ -39,6 +40,42 @@ public abstract class KeyWord implements Comparable<KeyWord> {
 	@Override
 	public int hashCode(){
 		return this.text.hashCode();
+	}
+	
+	private boolean approximatelyEqual(KeyWord first, KeyWord second){
+		return (hammingDistance(first.text, second.text) <= 2);
+	}
+	
+	private int hammingDistance(String firstWord, String secondWord){
+		int differenceInLength = firstWord.length() - secondWord.length();
+		if(differenceInLength == 0){
+			return hammingDistanceEqualLength(firstWord, secondWord);
+		}
+		else if(differenceInLength == -1){
+			return Math.min(hammingDistanceEqualLength(" " + firstWord, secondWord), hammingDistanceEqualLength(firstWord + " ", secondWord));
+		}
+		else if(differenceInLength == 1){
+			return Math.min(hammingDistanceEqualLength(firstWord, " " + secondWord), hammingDistanceEqualLength(firstWord, secondWord + " "));
+		}
+		else if(differenceInLength == -2){
+			return Math.min(Math.min(hammingDistanceEqualLength("  " + firstWord, secondWord), hammingDistanceEqualLength(" " + firstWord + " ", secondWord)),hammingDistanceEqualLength(firstWord + "  ", secondWord));
+		}
+		else if(differenceInLength == 2){
+			return Math.min(Math.min(hammingDistanceEqualLength(firstWord, "  " + secondWord), hammingDistanceEqualLength(firstWord, " " + secondWord + " ")),hammingDistanceEqualLength(firstWord, secondWord + "  "));
+		}
+		else return Integer.MAX_VALUE;
+	}
+	
+	private int hammingDistanceEqualLength(String firstWord, String secondWord){
+		if(firstWord.length() != secondWord.length())
+			throw new UnsupportedOperationException("Words are not of equal length!");
+		int counter = 0;
+		for (int i = 0; i < firstWord.length(); i++) {
+		    if (firstWord.charAt(i) != secondWord.charAt(i)) {
+		        ++counter;
+		    }
+		}
+		return counter;
 	}
 	
 }

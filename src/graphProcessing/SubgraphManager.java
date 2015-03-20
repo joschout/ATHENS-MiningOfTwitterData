@@ -391,7 +391,7 @@ public class SubgraphManager {
 		
 		for (Iterator<SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>> iter = densestSubgraphQueue.iterator(); iter.hasNext(); ) {
 			SimpleWeightedGraph<KeyWord, DefaultWeightedEdge> sub = iter.next();
-			text = text + "#=== Dense subgraph number: "+ denseSubgraphNb + "===# \n";
+			text = text + "#================ Dense subgraph number: "+ denseSubgraphNb + " ================# \n";
 			text = text + "Density of the graph: " + densityManager.getDensity(sub) + " \n";
 			
 			
@@ -419,7 +419,7 @@ public class SubgraphManager {
 			text = text + "Number of distinct tweets from which the subgraph emerged: "+ nrOfTweets+ " \n";
 			text = text + "The vertices in the subgraph with their degree: \n";
 			for(KeyWord vertex: tempDensestSubgraph.vertexSet()){
-				text = text + "    (" + vertex.toString() +", " + densityManager.getDegreeOfVertex(vertex, tempDensestSubgraph) + " \n";
+				text = text + "    (" + vertex.toString() +", " + densityManager.getDegreeOfVertex(vertex, tempDensestSubgraph) + ") \n";
 			}
 			text = text + "The edges in the subgraph: \n";
 			for(DefaultWeightedEdge edge: tempDensestSubgraph.edgeSet()){

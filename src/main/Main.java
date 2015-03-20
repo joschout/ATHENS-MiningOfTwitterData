@@ -61,15 +61,15 @@ public class Main {
 //	}
 	
 	private static void testGraphMultiplePrints() throws IOException{
-		JsonParser parser = new JsonParser("data");
+		JsonParser parser = new JsonParser("data//ParisSearchFeb");
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
-		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-24", true));
+		Filter filter = new Filter(parser.parseAllFiles(false));
 		parseTimer.stop();
 		SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
 		
 		WeightedDensityManager<KeyWord, DefaultWeightedEdge> densityManager = new WeightedDensityManager<KeyWord, DefaultWeightedEdge>();
-		SubgraphManager subgraphManager = new SubgraphManager();
+		SubgraphManager subgraphManager = new SubgraphManager(20);
 		CircularFifoQueue<SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>> queue = subgraphManager.getDensestSubgraphs(graph, densityManager);
 		
 

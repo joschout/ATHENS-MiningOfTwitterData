@@ -1,11 +1,12 @@
 package main;
 
+import graphProcessing.CircularFifoQueue;
 import graphProcessing.DensityManager;
 import graphProcessing.SubgraphManager;
 import graphProcessing.WeightedDensityManager;
-import gui.GUIApplet;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
@@ -21,7 +22,8 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException{
 		//testGraph();
-		testStanfordLib();
+		//testStanfordLib();
+		testGraphMultiplePrints();
 	}
 	
 	private static void testStanfordLib() throws IOException{
@@ -33,12 +35,12 @@ public class Main {
 	}
 
 	private static void testGraph() throws IOException{
-		JsonParser parser = new JsonParser("data//oscars");
+		JsonParser parser = new JsonParser("data");
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
-		Filter filter = new Filter(parser.parseFile("Oscars-2015-2-23"));
+		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23"));
 		parseTimer.stop();
-		SimpleWeightedGraph graph = filter.createWeightedGraph();
+		SimpleWeightedGraph<HashTag, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
 //		
 //		//Filter filter = new Filter(parser.parseAllFiles());
 //		parseTimer.stop();
@@ -48,7 +50,7 @@ public class Main {
 //			//System.out.print(tweet + "\n-----------------------------\n");
 //		}
 		
-		WeightedDensityManager<HashTag, DefaultWeightedEdge> densityManager = new WeightedDensityManager<HashTag, DefaultWeightedEdge>();
+		DensityManager<HashTag, DefaultWeightedEdge> densityManager = new WeightedDensityManager<HashTag, DefaultWeightedEdge>();
 		SubgraphManager subgraphManager = new SubgraphManager();
 		SimpleWeightedGraph<HashTag, DefaultWeightedEdge> densestSubgraph = subgraphManager.getDensestSubgraph3(graph, densityManager);
 		
@@ -59,7 +61,38 @@ public class Main {
 		}
 		for(DefaultWeightedEdge edge: densestSubgraph.edgeSet()){
 			System.out.println("edges: " +edge.toString());
+		}	
+	}
+	
+	private static void testGraphMultiplePrints() throws IOException{
+		JsonParser parser = new JsonParser("data");
+		Timer parseTimer = new Timer("parsing the files");
+		parseTimer.start();
+		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23"));
+		parseTimer.stop();
+		SimpleWeightedGraph<HashTag, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
+		
+		WeightedDensityManager<HashTag, DefaultWeightedEdge> densityManager = new WeightedDensityManager<HashTag, DefaultWeightedEdge>();
+		SubgraphManager subgraphManager = new SubgraphManager();
+		CircularFifoQueue<SimpleWeightedGraph<HashTag, DefaultWeightedEdge>> queue = subgraphManager.getDensestSubgraph4(graph, densityManager);
+		
+
+		for (Iterator<SimpleWeightedGraph<HashTag, DefaultWeightedEdge>> iter = queue.iterator(); iter.hasNext(); ) {
+			SimpleWeightedGraph<HashTag, DefaultWeightedEdge> tempDensestSubgraph = iter.next();
+			System.out.println("\n" + "//=== Start of new temp densest subgraph ===//");
+			System.out.println("vertexset: "+tempDensestSubgraph.vertexSet().toString());
+			
+			for(HashTag vertex: tempDensestSubgraph.vertexSet()){
+				System.out.println(vertex.toString() +": " + densityManager.getDegreeOfVertex(vertex, tempDensestSubgraph));
+			}
+			for(DefaultWeightedEdge edge: tempDensestSubgraph.edgeSet()){
+				System.out.println("edges: " +edge.toString());
+			}
+			System.out.println("//=== End of new temp densest subgraph ===//" +"\n");
 		}
+		
+		
+		
 	}
 	
 }

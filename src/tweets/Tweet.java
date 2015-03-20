@@ -9,10 +9,10 @@ public class Tweet {
 
 	public final long tweetId;
 	public final long userId;
-	public final String text;
+	public final Text text;
 	public final List<HashTag> hashtags;
 	
-	public Tweet(long tweetId, long userId, String text, List<HashTag> hashtags){
+	public Tweet(long tweetId, long userId, Text text, List<HashTag> hashtags){
 		this.tweetId = tweetId;
 		this.userId = userId;
 		this.text = text;

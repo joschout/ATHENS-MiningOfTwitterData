@@ -417,6 +417,14 @@ public class SubgraphManager {
 			
 			text = text + "Number of distinct users who contributed to the creation of the subgraph: " + nrOfusers+ " \n";
 			text = text + "Number of distinct tweets from which the subgraph emerged: "+ nrOfTweets+ " \n";
+			text = text + "The vertices in the subgraph with their degree: \n";
+			for(KeyWord vertex: tempDensestSubgraph.vertexSet()){
+				text = text + "    (" + vertex.toString() +", " + densityManager.getDegreeOfVertex(vertex, tempDensestSubgraph) + " \n";
+			}
+			text = text + "The edges in the subgraph: \n";
+			for(DefaultWeightedEdge edge: tempDensestSubgraph.edgeSet()){
+				text = text + "     " +edge.toString()+ " \n";
+			}
 			text = text + "#=========================================================#" + " \n";
 			denseSubgraphNb --;
 		}

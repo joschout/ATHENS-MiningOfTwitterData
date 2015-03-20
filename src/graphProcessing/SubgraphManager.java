@@ -418,6 +418,7 @@ public class SubgraphManager {
 			text = text + "Number of distinct users who contributed to the creation of the subgraph: " + nrOfusers+ " \n";
 			text = text + "Number of distinct tweets from which the subgraph emerged: "+ nrOfTweets+ " \n";
 			text = text + "#=========================================================#" + " \n";
+			denseSubgraphNb --;
 		}
 		
 		writer.write(text);

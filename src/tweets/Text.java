@@ -32,13 +32,8 @@ public class Text {
 		for(String word : splitKeyWords){
 			String[] parts = word.split("_");
 			if(parts.length == 2){
-				switch(parts[1]){
-				case "NN":
-					this.words.add(new Word(parts[0],parts[1]));
-					break;
-				default:
-					break;
-				}
+				if(!parts[0].startsWith("#") && (parts[1].contains("NN") || parts[1].contains("JJ")))
+					this.words.add(new Word(parts[0],"noun"));
 			}
 		}
 	}

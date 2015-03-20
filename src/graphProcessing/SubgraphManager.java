@@ -151,7 +151,7 @@ public class SubgraphManager {
 			NeighborIndex<KeyWord, DefaultWeightedEdge> index = new NeighborIndex<KeyWord, DefaultWeightedEdge>(tempGraph);
 			Set<KeyWord> neighborsOfVerticesWithSmallestDegree = new HashSet<KeyWord>();
 			for(KeyWord vertex: verticesOfSmallestDegree){
-				System.out.println("looking for neighbors of: " + vertex.toString());
+//				System.out.println("looking for neighbors of: " + vertex.toString());
 				neighborsOfVerticesWithSmallestDegree.addAll(index.neighborsOf(vertex));
 			}
 			System.out.println("the set of neighboring vertices  is:" + "\n    " + neighborsOfVerticesWithSmallestDegree.toString());
@@ -168,7 +168,7 @@ public class SubgraphManager {
 					if(degreeVerticesMap.get(neighborDegree).isEmpty()){
 						degreeVerticesMap.remove(neighborDegree);
 					}
-					System.out.println("removed neighbor from map: " +  neighbor.toString()+ " with degree: "+ neighborDegree);
+//					System.out.println("removed neighbor from map: " +  neighbor.toString()+ " with degree: "+ neighborDegree);
 				}
 			}
 					
@@ -186,7 +186,7 @@ public class SubgraphManager {
 						setForThisDegree.add(neighbor);
 						degreeVerticesMap.put(degreeOfNeighbor, setForThisDegree);
 					}
-					System.out.println("added neighbor to map: " +  neighbor.toString()+ " with degree: "+ degreeOfNeighbor);	
+//					System.out.println("added neighbor to map: " +  neighbor.toString()+ " with degree: "+ degreeOfNeighbor);	
 				}
 			}	
 			

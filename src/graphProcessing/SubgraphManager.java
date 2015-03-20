@@ -96,175 +96,167 @@ public class SubgraphManager {
 			//put the neighbors back in the map
 			for(HashTag neighbor: neighborsOfVertex){
 				double degreeOfNeighbor = densitymanager.getDegreeOfVertex(neighbor, tempGraph);
-				if(degreeVerticesMap.containsKey(degreeOfNeighbor)){
-//					System.out.println("the map contains the key/ vertices of this degree");	
-//					System.out.println("a print of the current map: "+degreeVerticesMap.toString());
-					
+				if(degreeVerticesMap.containsKey(degreeOfNeighbor)){					
 					degreeVerticesMap.get(degreeOfNeighbor).add(neighbor);
 				}else{
-//					System.out.println("the map does not contain the key/ vertices of this degree");
 					Set<HashTag> setForThisDegree = new HashSet<HashTag>();
 					setForThisDegree.add(neighbor);
 					degreeVerticesMap.put(degreeOfNeighbor, setForThisDegree);
 				}
 			}			
 			
-			
 			/*
 			 * if the density of tempGraph is larger than the density of tempDensestSubgraph
 			 * then store tempGraph as tempDensestSubgraph
 			 */
 			updateTempDensestSubgraph(densitymanager);
-			
-			System.out.println("#END OF WHILE#");
-			//check if the graph has at least 3  
+			System.out.println("#END OF WHILE#"); 
 		}
 		
 		System.out.println("the method returns");
 		return tempDensestSubgraph;
 	}
+//
+//	@Deprecated
+//	public SimpleWeightedGraph<HashTag, DefaultWeightedEdge> getDensestSubgraph2(SimpleWeightedGraph<HashTag, DefaultWeightedEdge> inputGraph,
+//			DensityManager<HashTag, DefaultWeightedEdge> densitymanager){
+//		
+//		
+//		initializeTempGraphs(inputGraph);
+//		
+//		//PREPROCESSING STEP
+//		this.degreeVerticesMap = new TreeMap<Double, Set<HashTag>>();	
+//		
+//		initializeDegreeVerticesMapWithVertices(inputGraph, densitymanager);
+//		
+//		while(!degreeVerticesMap.isEmpty()){
+//			System.out.println("#START OF WHILE#");
+//			System.out.println("current keyset: " + degreeVerticesMap.keySet().toString());
+//			System.out.println("Current valueset: " + degreeVerticesMap.values().toString());
+//			
+//			//get the smallest degree
+//			double tempMin = ((TreeMap<Double, Set<HashTag>>) degreeVerticesMap).firstKey();
+//			
+//			System.out.println("smallest degree is: " + tempMin);
+//			
+//			//get 1 node with the smallest degree
+//			Set<HashTag> verticesOfSmallestDegree = degreeVerticesMap.get(tempMin);
+//			System.out.println("de set of vertices with this degree is: "+ verticesOfSmallestDegree.toString());
+//			HashTag vertex = (HashTag) verticesOfSmallestDegree.toArray()[0];
+//			System.out.println("the vertexof this degree is: " + vertex.toString());
+//			
+//			
+//			
+//			
+//			
+//			
+//			NeighborIndex<HashTag, DefaultWeightedEdge> index = new NeighborIndex<HashTag, DefaultWeightedEdge>(tempGraph);
+//			Set<HashTag> neighborsOfVertex = index.neighborsOf(vertex);
+//			for(HashTag neighbor: neighborsOfVertex){
+//				double neighborDegree = densitymanager.getDegreeOfVertex(neighbor, tempGraph);
+//				degreeVerticesMap.get(neighborDegree).remove(neighbor);
+//			}
+//			
+//			
+//			
+//			
+//			verticesOfSmallestDegree.remove(vertex);
+//			System.out.println("this vertex is removed!");
+//			if(verticesOfSmallestDegree.isEmpty()){
+//				degreeVerticesMap.remove(tempMin);
+//				System.out.println("map for this degree removed!");
+//			}
+//			//remove v and all its edges
+//			tempGraph.removeVertex(vertex);
+//			
+//
+//			for(HashTag neighbor: neighborsOfVertex){
+//				double degreeOfNeighbor = densitymanager.getDegreeOfVertex(neighbor, inputGraph);;
+//				if(degreeVerticesMap.containsKey(degreeOfNeighbor)){
+////					System.out.println("the map contains the key/ vertices of this degree");	
+////					System.out.println("a print of the current map: "+degreeVerticesMap.toString());
+//					
+//					degreeVerticesMap.get(degreeOfNeighbor).add(neighbor);
+//				}else{
+////					System.out.println("the map does not contain the key/ vertices of this degree");
+//					Set<HashTag> setForThisDegree = new HashSet<HashTag>();
+//					setForThisDegree.add(neighbor);
+//					degreeVerticesMap.put(degreeOfNeighbor, setForThisDegree);
+//				}
+//			}	
+//			
+//			/*
+//			 * if the density of tempGraph is larger than the density of tempDensestSubgraph
+//			 * then store tempGraph as tempDensestSubgraph
+//			 */
+//			updateTempDensestSubgraph(densitymanager);
+//	
+//			System.out.println("#END OF WHILE#");
+//			//check if the graph has at least 3  
+//		}
+//		
+//		System.out.println("the method returns");
+//		return tempDensestSubgraph;
+//	}
+//
+//	@Deprecated
+//	public SimpleWeightedGraph<HashTag, DefaultWeightedEdge> getDensestSubgraph3(SimpleWeightedGraph<HashTag, DefaultWeightedEdge> inputGraph,
+//			DensityManager<HashTag, DefaultWeightedEdge> densitymanager){
+//		
+//		
+//		initializeTempGraphs(inputGraph);
+//		
+//		//PREPROCESSING STEP
+//		degreeVerticesMap = new TreeMap<Double, Set<HashTag>>();	
+//		
+//		initializeDegreeVerticesMapWithVertices(inputGraph, densitymanager);
+//		
+//		while(!degreeVerticesMap.isEmpty()){
+//			System.out.println("#START OF WHILE#");
+//			System.out.println("current keyset: " + degreeVerticesMap.keySet().toString());
+//			System.out.println("Current valueset: " + degreeVerticesMap.values().toString());
+//			
+//			//get the smallest degree
+//			double tempMin = ((TreeMap<Double, Set<HashTag>>) degreeVerticesMap).firstKey();
+//			
+//			System.out.println("smallest degree is: " + tempMin);
+//			
+//			//get 1 node with the smallest degree
+//			Set<HashTag> verticesOfSmallestDegree = degreeVerticesMap.get(tempMin);
+//			System.out.println("de set van vertices met deze degree is: "+ verticesOfSmallestDegree.toString());
+//			
+//			NeighborIndex<HashTag, DefaultWeightedEdge> index = new NeighborIndex<HashTag, DefaultWeightedEdge>(tempGraph);
+//			Set<HashTag> neighborsOfVertex = new HashSet<HashTag>();
+//			for(HashTag vertex: verticesOfSmallestDegree){
+//				neighborsOfVertex.addAll(index.neighborsOf(vertex));				
+//				System.out.println("de vertex met deze degree is: " + vertex.toString());
+//				tempGraph.removeVertex(vertex);
+//				System.out.println("this vertex is removed!");
+//			}
+//			degreeVerticesMap.remove(tempMin);
+//			System.out.println("map for this degree removed!");
+//			for(HashTag neighbor: neighborsOfVertex){
+//				double neighborDegree = densitymanager.getDegreeOfVertex(neighbor, tempGraph);
+//				degreeVerticesMap.get(neighborDegree).remove(neighbor);
+//			}
+//			
+//			/*
+//			 * if the density of tempGraph is larger than the density of tempDensestSubgraph
+//			 * then store tempGraph as tempDensestSubgraph
+//			 */
+//			updateTempDensestSubgraph(densitymanager);
+//			
+//			System.out.println("#END OF WHILE#");
+//			//check if the graph has at least 3  
+//		}
+//		
+//		System.out.println("the method returns");
+//		return tempDensestSubgraph;
+//	}
 
-	@Deprecated
-	public SimpleWeightedGraph<HashTag, DefaultWeightedEdge> getDensestSubgraph2(SimpleWeightedGraph<HashTag, DefaultWeightedEdge> inputGraph,
+	public CircularFifoQueue<SimpleWeightedGraph<HashTag, DefaultWeightedEdge>> getDensestSubgraphs(SimpleWeightedGraph<HashTag, DefaultWeightedEdge> inputGraph,
 			DensityManager<HashTag, DefaultWeightedEdge> densitymanager){
-		
-		
-		initializeTempGraphs(inputGraph);
-		
-		//PREPROCESSING STEP
-		this.degreeVerticesMap = new TreeMap<Double, Set<HashTag>>();	
-		
-		initializeDegreeVerticesMapWithVertices(inputGraph, densitymanager);
-		
-		while(!degreeVerticesMap.isEmpty()){
-			System.out.println("#START OF WHILE#");
-			System.out.println("current keyset: " + degreeVerticesMap.keySet().toString());
-			System.out.println("Current valueset: " + degreeVerticesMap.values().toString());
 			
-			//get the smallest degree
-			double tempMin = ((TreeMap<Double, Set<HashTag>>) degreeVerticesMap).firstKey();
-			
-			System.out.println("smallest degree is: " + tempMin);
-			
-			//get 1 node with the smallest degree
-			Set<HashTag> verticesOfSmallestDegree = degreeVerticesMap.get(tempMin);
-			System.out.println("de set of vertices with this degree is: "+ verticesOfSmallestDegree.toString());
-			HashTag vertex = (HashTag) verticesOfSmallestDegree.toArray()[0];
-			System.out.println("the vertexof this degree is: " + vertex.toString());
-			
-			
-			
-			
-			
-			
-			NeighborIndex<HashTag, DefaultWeightedEdge> index = new NeighborIndex<HashTag, DefaultWeightedEdge>(tempGraph);
-			Set<HashTag> neighborsOfVertex = index.neighborsOf(vertex);
-			for(HashTag neighbor: neighborsOfVertex){
-				double neighborDegree = densitymanager.getDegreeOfVertex(neighbor, tempGraph);
-				degreeVerticesMap.get(neighborDegree).remove(neighbor);
-			}
-			
-			
-			
-			
-			verticesOfSmallestDegree.remove(vertex);
-			System.out.println("this vertex is removed!");
-			if(verticesOfSmallestDegree.isEmpty()){
-				degreeVerticesMap.remove(tempMin);
-				System.out.println("map for this degree removed!");
-			}
-			//remove v and all its edges
-			tempGraph.removeVertex(vertex);
-			
-
-			for(HashTag neighbor: neighborsOfVertex){
-				double degreeOfNeighbor = densitymanager.getDegreeOfVertex(neighbor, inputGraph);;
-				if(degreeVerticesMap.containsKey(degreeOfNeighbor)){
-//					System.out.println("the map contains the key/ vertices of this degree");	
-//					System.out.println("a print of the current map: "+degreeVerticesMap.toString());
-					
-					degreeVerticesMap.get(degreeOfNeighbor).add(neighbor);
-				}else{
-//					System.out.println("the map does not contain the key/ vertices of this degree");
-					Set<HashTag> setForThisDegree = new HashSet<HashTag>();
-					setForThisDegree.add(neighbor);
-					degreeVerticesMap.put(degreeOfNeighbor, setForThisDegree);
-				}
-			}	
-			
-			/*
-			 * if the density of tempGraph is larger than the density of tempDensestSubgraph
-			 * then store tempGraph as tempDensestSubgraph
-			 */
-			updateTempDensestSubgraph(densitymanager);
-	
-			System.out.println("#END OF WHILE#");
-			//check if the graph has at least 3  
-		}
-		
-		System.out.println("the method returns");
-		return tempDensestSubgraph;
-	}
-
-	@Deprecated
-	public SimpleWeightedGraph<HashTag, DefaultWeightedEdge> getDensestSubgraph3(SimpleWeightedGraph<HashTag, DefaultWeightedEdge> inputGraph,
-			DensityManager<HashTag, DefaultWeightedEdge> densitymanager){
-		
-		
-		initializeTempGraphs(inputGraph);
-		
-		//PREPROCESSING STEP
-		degreeVerticesMap = new TreeMap<Double, Set<HashTag>>();	
-		
-		initializeDegreeVerticesMapWithVertices(inputGraph, densitymanager);
-		
-		while(!degreeVerticesMap.isEmpty()){
-			System.out.println("#START OF WHILE#");
-			System.out.println("current keyset: " + degreeVerticesMap.keySet().toString());
-			System.out.println("Current valueset: " + degreeVerticesMap.values().toString());
-			
-			//get the smallest degree
-			double tempMin = ((TreeMap<Double, Set<HashTag>>) degreeVerticesMap).firstKey();
-			
-			System.out.println("smallest degree is: " + tempMin);
-			
-			//get 1 node with the smallest degree
-			Set<HashTag> verticesOfSmallestDegree = degreeVerticesMap.get(tempMin);
-			System.out.println("de set van vertices met deze degree is: "+ verticesOfSmallestDegree.toString());
-			
-			NeighborIndex<HashTag, DefaultWeightedEdge> index = new NeighborIndex<HashTag, DefaultWeightedEdge>(tempGraph);
-			Set<HashTag> neighborsOfVertex = new HashSet<HashTag>();
-			for(HashTag vertex: verticesOfSmallestDegree){
-				neighborsOfVertex.addAll(index.neighborsOf(vertex));				
-				System.out.println("de vertex met deze degree is: " + vertex.toString());
-				tempGraph.removeVertex(vertex);
-				System.out.println("this vertex is removed!");
-			}
-			degreeVerticesMap.remove(tempMin);
-			System.out.println("map for this degree removed!");
-			for(HashTag neighbor: neighborsOfVertex){
-				double neighborDegree = densitymanager.getDegreeOfVertex(neighbor, tempGraph);
-				degreeVerticesMap.get(neighborDegree).remove(neighbor);
-			}
-			
-			/*
-			 * if the density of tempGraph is larger than the density of tempDensestSubgraph
-			 * then store tempGraph as tempDensestSubgraph
-			 */
-			updateTempDensestSubgraph(densitymanager);
-			
-			System.out.println("#END OF WHILE#");
-			//check if the graph has at least 3  
-		}
-		
-		System.out.println("the method returns");
-		return tempDensestSubgraph;
-	}
-
-	public CircularFifoQueue<SimpleWeightedGraph<HashTag, DefaultWeightedEdge>> getDensestSubgraph4(SimpleWeightedGraph<HashTag, DefaultWeightedEdge> inputGraph,
-			DensityManager<HashTag, DefaultWeightedEdge> densitymanager){
-		
-		
 		initializeTempGraphs(inputGraph);
 			
 		//PREPROCESSING STEP
@@ -284,8 +276,6 @@ public class SubgraphManager {
 			//get nodes with the smallest degree
 			Set<HashTag> verticesOfSmallestDegree = degreeVerticesMap.get(tempMin);
 			System.out.println("the set of vertices with the smallest degree is: "+ verticesOfSmallestDegree.toString());
-			
-			
 			
 			//get neighbors of the nodes with the smallest degree
 			NeighborIndex<HashTag, DefaultWeightedEdge> index = new NeighborIndex<HashTag, DefaultWeightedEdge>(tempGraph);
@@ -315,18 +305,13 @@ public class SubgraphManager {
 			//remove the vertices with the smallest degree from the tempGraph
 			tempGraph.removeAllVertices(verticesOfSmallestDegree);
 			
-			
 			//put the neighbors back in the map (if they aren't part of the removed vertices)
 			for(HashTag neighbor: neighborsOfVerticesWithSmallestDegree){
 				if(tempGraph.containsVertex(neighbor)){
 					double degreeOfNeighbor = densitymanager.getDegreeOfVertex(neighbor, tempGraph);
 					if(degreeVerticesMap.containsKey(degreeOfNeighbor)){
-	//					System.out.println("the map contains the key/ vertices of this degree");	
-	//					System.out.println("a print of the current map: "+degreeVerticesMap.toString());
-						
 						degreeVerticesMap.get(degreeOfNeighbor).add(neighbor);
 					}else{
-	//					System.out.println("the map does not contain the key/ vertices of this degree");
 						Set<HashTag> setForThisDegree = new HashSet<HashTag>();
 						setForThisDegree.add(neighbor);
 						degreeVerticesMap.put(degreeOfNeighbor, setForThisDegree);
@@ -338,10 +323,8 @@ public class SubgraphManager {
 			 * if the density of tempGraph is larger than the density of tempDensestSubgraph
 			 * then store tempGraph as tempDensestSubgraph
 			 */
-			updateTempDensestSubgraph2(densitymanager);
-			
+			updateDensestSubgraphQueue(densitymanager);
 			System.out.println("#======== END OF WHILE ========#");
-			//check if the graph has at least 3  
 		}
 		
 		System.out.println("the method returns");
@@ -378,7 +361,7 @@ public class SubgraphManager {
 		}
 	}
 	
-	private void updateTempDensestSubgraph2(
+	private void updateDensestSubgraphQueue(
 			DensityManager<HashTag, DefaultWeightedEdge> densitymanager) {
 		double densityOfTempGraph = densitymanager.getDensity(this.tempGraph);
 		double densityOfTempDensestSubgraph = densitymanager.getDensity(this.tempDensestSubgraph);

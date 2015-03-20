@@ -13,6 +13,7 @@ import org.jgrapht.graph.SimpleWeightedGraph;
 import preprocessing.Filter;
 import preprocessing.JsonParser;
 import tweets.HashTag;
+import tweets.Text;
 import tweets.Tweet;
 import utils.Timer;
 
@@ -23,8 +24,12 @@ public class Main {
 		testStanfordLib();
 	}
 	
-	private static void testStanfordLib(){
-		
+	private static void testStanfordLib() throws IOException{
+		JsonParser parser = new JsonParser("data");
+		Timer parseTimer = new Timer("parsing the files");
+		parseTimer.start();
+		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23"));
+		parseTimer.stop();
 	}
 
 	private static void testGraph() throws IOException{

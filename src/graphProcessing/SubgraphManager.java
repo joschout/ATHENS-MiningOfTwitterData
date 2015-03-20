@@ -377,9 +377,14 @@ public class SubgraphManager {
 		}
 	}
 	
-	public void printSubgraphsToFile(DensityManager densityManager) throws IOException{
-		File file = new File("/subgraph");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+	public void printSubgraphsToFile(DensityManager densityManager, String fileName) throws IOException{
+		File file = new File(fileName);
+		
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+		
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 		String text = "This file contains the results from a run of the Densest Subgraph algoritm. \n"
 				+ "";
 		int denseSubgraphNb = densestSubgraphQueue.size();
@@ -417,6 +422,8 @@ public class SubgraphManager {
 		
 		writer.write(text);
 		writer.close();
+		
+		System.out.println("File written to: " + file.getAbsolutePath().toString());
 	}
 	
 	

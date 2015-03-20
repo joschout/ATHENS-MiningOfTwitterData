@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import tweets.HashTag;
+import tweets.Text;
 import tweets.Tweet;
 import utils.Timer;
 
@@ -79,7 +80,8 @@ public class JsonParser {
 	  JSONObject user = (JSONObject) parsedLine.get("user");
 	  long parsedUserId = Long.parseLong(user.get("id").toString());
 
-	  String parsedText = parsedLine.get("text").toString();
+	  String text = parsedLine.get("text").toString();
+	  Text parsedText = new Text(text);
 	  
 	  JSONObject entities = (JSONObject) parsedLine.get("entities");
 	  JSONArray hashtags = (JSONArray) entities.get("hashtags");

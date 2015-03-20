@@ -28,7 +28,7 @@ public class JsonParser {
 		this.directory = directory;
 	}
 	
-	public List<Tweet> parseFile(String fileName) throws IOException{
+	public List<Tweet> parseFile(String fileName, boolean parseText) throws IOException{
 		Timer parseTimer = new Timer("parsing \"" + fileName + "\"");
 		parseTimer.start();
 		
@@ -42,7 +42,7 @@ public class JsonParser {
 	    //int counter = 0;
 	    //while (counter < 100 && line != null){
 	    while (line != null){
-	    	parseLine(line, tweets, keywords);
+	    	parseLine(line, tweets, keywords, parseText);
 	    	line = reader.readLine();
 	    //	++counter;
 	    }
@@ -52,7 +52,7 @@ public class JsonParser {
 		return tweets;
 	}
 	
-	public List<Tweet> parseAllFiles() throws IOException{
+	public List<Tweet> parseAllFiles(boolean parseText) throws IOException{
 			
 	    List<Tweet> tweets = new ArrayList<Tweet>();
 
@@ -63,7 +63,7 @@ public class JsonParser {
 			for (File file : files) {
 				try{
 					if(!file.getName().equals(".DS_Store"))
-						tweets.addAll(parseFile(file.getName()));
+						tweets.addAll(parseFile(file.getName(), parseText));
 				}
 				catch(MalformedInputException ex){
 					System.out.println("MalformedInputException: " + ex + " while parsing file \"" + file.getName() + "\"");
@@ -76,7 +76,7 @@ public class JsonParser {
 		
 	}
 	
-	private void parseLine(String line, List<Tweet> tweets, List<KeyWord> alreadyCreatedKeywords){
+	private void parseLine(String line, List<Tweet> tweets, List<KeyWord> alreadyCreatedKeywords, boolean parseText){
 
 	  JSONObject parsedLine = (JSONObject) JSONValue.parse(line);
 	  
@@ -86,7 +86,7 @@ public class JsonParser {
 	  long parsedUserId = Long.parseLong(user.get("id").toString());
 
 	  String text = parsedLine.get("text").toString();
-	  Text parsedText = new Text(text);
+	  Text parsedText = new Text(text, parseText);
 	  
 	  JSONObject entities = (JSONObject) parsedLine.get("entities");
 	  JSONArray hashtags = (JSONArray) entities.get("hashtags");

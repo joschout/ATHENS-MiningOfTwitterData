@@ -154,7 +154,7 @@ public class SubgraphManager {
 				System.out.println("looking for neighbors of: " + vertex.toString());
 				neighborsOfVerticesWithSmallestDegree.addAll(index.neighborsOf(vertex));
 			}
-			System.out.println("the set of neighboring vertices  is:" + "\n" + neighborsOfVerticesWithSmallestDegree.toString());
+			System.out.println("the set of neighboring vertices  is:" + "\n    " + neighborsOfVerticesWithSmallestDegree.toString());
 			
 			//remove the vertices with the smallest degree from the map
 			degreeVerticesMap.remove(tempMin);
@@ -168,7 +168,7 @@ public class SubgraphManager {
 					if(degreeVerticesMap.get(neighborDegree).isEmpty()){
 						degreeVerticesMap.remove(neighborDegree);
 					}
-					System.out.println("removed the neighbor from map: " +  neighbor.toString()+ " with degree: "+ neighborDegree);
+					System.out.println("removed neighbor from map: " +  neighbor.toString()+ " with degree: "+ neighborDegree);
 				}
 			}
 					
@@ -186,9 +186,12 @@ public class SubgraphManager {
 						setForThisDegree.add(neighbor);
 						degreeVerticesMap.put(degreeOfNeighbor, setForThisDegree);
 					}
+					System.out.println("added neighbor to map: " +  neighbor.toString()+ " with degree: "+ degreeOfNeighbor);	
 				}
 			}	
-
+			
+			System.out.println("current keyset: " + degreeVerticesMap.keySet().toString());
+			System.out.println("Current valueset: " + degreeVerticesMap.values().toString());
 			/*
 			 * if the density of tempGraph is larger than the density of tempDensestSubgraph
 			 * then store tempGraph as tempDensestSubgraph
@@ -234,8 +237,11 @@ public class SubgraphManager {
 	private void updateDensestSubgraphQueue(
 			DensityManager<KeyWord, DefaultWeightedEdge> densitymanager) {
 		double densityOfTempGraph = densitymanager.getDensity(this.tempGraph);
+		System.out.println("density of the current temp graph: " + densityOfTempGraph);
 		double densityOfTempDensestSubgraph = densitymanager.getDensity(this.tempDensestSubgraph);
+		System.out.println("density of the densest subgraph up until now:" + densityOfTempDensestSubgraph);
 		if (densityOfTempGraph > densityOfTempDensestSubgraph) {
+			System.out.println("new densest subgraph added");
 			tempDensestSubgraph = (SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>) tempGraph.clone();
 			this.getDensestSubgraphQueue().add(tempDensestSubgraph);
 		}
@@ -282,11 +288,11 @@ public class SubgraphManager {
 			text = text + "Number of distinct users who contributed to the creation of the subgraph: " + nrOfusers+ " \n";
 			text = text + "Number of distinct tweets from which the subgraph emerged: "+ nrOfTweets+ " \n";
 			text = text + "The vertices in the subgraph with their degree: \n";
-			for(KeyWord vertex: tempDensestSubgraph.vertexSet()){
-				text = text + "    (" + vertex.toString() +", " + densityManager.getDegreeOfVertex(vertex, tempDensestSubgraph) + ") \n";
+			for(KeyWord vertex: sub.vertexSet()){
+				text = text + "    (" + vertex.toString() +", " + densityManager.getDegreeOfVertex(vertex, sub) + ") \n";
 			}
 			text = text + "The edges in the subgraph: \n";
-			for(DefaultWeightedEdge edge: tempDensestSubgraph.edgeSet()){
+			for(DefaultWeightedEdge edge: sub.edgeSet()){
 				text = text + "     " +edge.toString()+ " \n";
 			}
 			text = text + "#=========================================================#" + " \n";

@@ -13,7 +13,7 @@ import org.jgrapht.graph.SimpleWeightedGraph;
 
 import preprocessing.Filter;
 import preprocessing.JsonParser;
-import tweets.HashTag;
+import tweets.KeyWord;
 import tweets.Text;
 import tweets.Tweet;
 import utils.Timer;
@@ -70,19 +70,19 @@ public class Main {
 		parseTimer.start();
 		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23"));
 		parseTimer.stop();
-		SimpleWeightedGraph<HashTag, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
+		SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
 		
-		WeightedDensityManager<HashTag, DefaultWeightedEdge> densityManager = new WeightedDensityManager<HashTag, DefaultWeightedEdge>();
+		WeightedDensityManager<KeyWord, DefaultWeightedEdge> densityManager = new WeightedDensityManager<KeyWord, DefaultWeightedEdge>();
 		SubgraphManager subgraphManager = new SubgraphManager();
-		CircularFifoQueue<SimpleWeightedGraph<HashTag, DefaultWeightedEdge>> queue = subgraphManager.getDensestSubgraphs(graph, densityManager);
+		CircularFifoQueue<SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>> queue = subgraphManager.getDensestSubgraphs(graph, densityManager);
 		
 
-		for (Iterator<SimpleWeightedGraph<HashTag, DefaultWeightedEdge>> iter = queue.iterator(); iter.hasNext(); ) {
-			SimpleWeightedGraph<HashTag, DefaultWeightedEdge> tempDensestSubgraph = iter.next();
+		for (Iterator<SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>> iter = queue.iterator(); iter.hasNext(); ) {
+			SimpleWeightedGraph<KeyWord, DefaultWeightedEdge> tempDensestSubgraph = iter.next();
 			System.out.println("\n" + "//=== Start of new temp densest subgraph ===//");
 			System.out.println("vertexset: "+tempDensestSubgraph.vertexSet().toString());
 			
-			for(HashTag vertex: tempDensestSubgraph.vertexSet()){
+			for(KeyWord vertex: tempDensestSubgraph.vertexSet()){
 				System.out.println(vertex.toString() +": " + densityManager.getDegreeOfVertex(vertex, tempDensestSubgraph));
 			}
 			for(DefaultWeightedEdge edge: tempDensestSubgraph.edgeSet()){

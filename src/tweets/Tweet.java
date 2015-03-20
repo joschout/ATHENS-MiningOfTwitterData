@@ -19,7 +19,6 @@ public class Tweet {
 		this.text = text;
 		this.hashtags = hashtags;
 		this.keywords = getKeyWords(alreadyCreatedKeywords);
-		System.out.println(this.keywords);
 	}
 	
 	@Override

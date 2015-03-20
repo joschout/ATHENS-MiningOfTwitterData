@@ -1,0 +1,129 @@
+#START OF WHILE#
+current keyset: [181.0, 195.0, 210.0, 222.0, 232.0, 247.0, 248.0, 297.0, 308.0, 638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#london], [#travel], [#miami], [#fashion], [#tweetmyjobs], [#manhattan], [#brooklyn], [#ny], [#newyorkcity], [#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 181.0
+de set van vertices met deze degree is: [#london]
+de vertex met deze degree is: #london
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [195.0, 210.0, 222.0, 232.0, 247.0, 248.0, 297.0, 308.0, 638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#travel], [#miami], [#fashion], [#tweetmyjobs], [#manhattan], [#brooklyn], [#ny], [#newyorkcity], [#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 195.0
+de set van vertices met deze degree is: [#travel]
+de vertex met deze degree is: #travel
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [210.0, 222.0, 232.0, 247.0, 248.0, 297.0, 308.0, 638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#miami], [#fashion], [#tweetmyjobs], [#manhattan], [#brooklyn], [#ny], [#newyorkcity], [#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 210.0
+de set van vertices met deze degree is: [#miami]
+de vertex met deze degree is: #miami
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [222.0, 232.0, 247.0, 248.0, 297.0, 308.0, 638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#fashion], [#tweetmyjobs], [#manhattan], [#brooklyn], [#ny], [#newyorkcity], [#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 222.0
+de set van vertices met deze degree is: [#fashion]
+de vertex met deze degree is: #fashion
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [232.0, 247.0, 248.0, 297.0, 308.0, 638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#tweetmyjobs], [#manhattan], [#brooklyn], [#ny], [#newyorkcity], [#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 232.0
+de set van vertices met deze degree is: [#tweetmyjobs]
+de vertex met deze degree is: #tweetmyjobs
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [247.0, 248.0, 297.0, 308.0, 638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#manhattan], [#brooklyn], [#ny], [#newyorkcity], [#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 247.0
+de set van vertices met deze degree is: [#manhattan]
+de vertex met deze degree is: #manhattan
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [248.0, 297.0, 308.0, 638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#brooklyn], [#ny], [#newyorkcity], [#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 248.0
+de set van vertices met deze degree is: [#brooklyn]
+de vertex met deze degree is: #brooklyn
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [297.0, 308.0, 638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#ny], [#newyorkcity], [#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 297.0
+de set van vertices met deze degree is: [#ny]
+de vertex met deze degree is: #ny
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [308.0, 638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#newyorkcity], [#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 308.0
+de set van vertices met deze degree is: [#newyorkcity]
+de vertex met deze degree is: #newyorkcity
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [638.0, 681.0, 1181.0, 3600.0]
+Current valueset: [[#job], [#jobs], [#nyc], [#newyork]]
+smallest degree is: 638.0
+de set van vertices met deze degree is: [#job]
+de vertex met deze degree is: #job
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [681.0, 1181.0, 3600.0]
+Current valueset: [[#jobs], [#nyc], [#newyork]]
+smallest degree is: 681.0
+de set van vertices met deze degree is: [#jobs]
+de vertex met deze degree is: #jobs
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [1181.0, 3600.0]
+Current valueset: [[#nyc], [#newyork]]
+smallest degree is: 1181.0
+de set van vertices met deze degree is: [#nyc]
+de vertex met deze degree is: #nyc
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+#START OF WHILE#
+current keyset: [3600.0]
+Current valueset: [[#newyork]]
+smallest degree is: 3600.0
+de set van vertices met deze degree is: [#newyork]
+de vertex met deze degree is: #newyork
+this vertex is removed!
+map for this degree removed!
+#END OF WHILE#
+the method returns
+vertexset: [#newyork, #jobs, #nyc, #job]
+#newyork: 333.0
+#jobs: 247.0
+#nyc: 154.0
+#job: 206.0
+edges: (#jobs : #newyork)
+edges: (#newyork : #nyc)
+edges: (#job : #jobs)
+edges: (#job : #newyork)
+edges: (#job : #nyc)
+edges: (#jobs : #nyc)

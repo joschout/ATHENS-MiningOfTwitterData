@@ -20,11 +20,13 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException{
 
-		JsonParser parser = new JsonParser("data");
-		Filter filter = new Filter(parser.parseFile("test"));
+		JsonParser parser = new JsonParser("data//oscars");
+		Timer parseTimer = new Timer("parsing the files");
+		parseTimer.start();
+		Filter filter = new Filter(parser.parseFile("Oscars-2015-2-23"));
+		parseTimer.stop();
 		SimpleWeightedGraph graph = filter.createWeightedGraph();
-//		Timer parseTimer = new Timer("parsing the files");
-//		parseTimer.start();
+//		
 //		//Filter filter = new Filter(parser.parseAllFiles());
 //		parseTimer.stop();
 
@@ -35,7 +37,7 @@ public class Main {
 		
 		WeightedDensityManager<HashTag, DefaultWeightedEdge> densityManager = new WeightedDensityManager<HashTag, DefaultWeightedEdge>();
 		SubgraphManager subgraphManager = new SubgraphManager();
-		SimpleWeightedGraph<HashTag, DefaultWeightedEdge> densestSubgraph = subgraphManager.getDensestSubgraph(graph, densityManager);
+		SimpleWeightedGraph<HashTag, DefaultWeightedEdge> densestSubgraph = subgraphManager.getDensestSubgraph3(graph, densityManager);
 		
 		System.out.println("vertexset: "+densestSubgraph.vertexSet().toString());
 		

@@ -88,7 +88,7 @@ public class Main {
 //			System.out.println("//=== End of new temp densest subgraph ===//" +"\n");
 //		}
 		
-		subgraphManager.printSubgraphsToFile(densityManager, "outputfile.txt");
+		subgraphManager.printSubgraphsToFile(densityManager, fileName + ".txt");
 		
 	}
 	

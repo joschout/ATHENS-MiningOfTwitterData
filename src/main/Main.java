@@ -61,10 +61,11 @@ public class Main {
 //	}
 	
 	private static void testGraphMultiplePrints() throws IOException{
-		JsonParser parser = new JsonParser("data/NY");
+		String fileName = "NewYork-2015-2-23";
+		JsonParser parser = new JsonParser("data");
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
-		Filter filter = new Filter(parser.parseAllFiles(true));
+		Filter filter = new Filter(parser.parseFile(fileName,true));
 		parseTimer.stop();
 		SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
 		

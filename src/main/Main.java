@@ -19,7 +19,10 @@ public class Main {
 	public static void main(String[] args) throws IOException{
 		//testGraph();
 		//testStanfordLib();
-		testGraphMultiplePrints();
+		testGraphMultiplePrints("NY", true);
+		testGraphMultiplePrints("Oscars", true);
+		testGraphMultiplePrints("ParisFeb", true);
+		testGraphMultiplePrints("ParisJan", true);
 	}
 	
 	private static void testStanfordLib() throws IOException{
@@ -60,12 +63,11 @@ public class Main {
 //		}	
 //	}
 	
-	private static void testGraphMultiplePrints() throws IOException{
-		String fileName = "NewYork-2015-2-23";
-		JsonParser parser = new JsonParser("data");
+	private static void testGraphMultiplePrints(String fileName, boolean tagger) throws IOException{
+		JsonParser parser = new JsonParser("data/" + fileName);
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
-		Filter filter = new Filter(parser.parseFile(fileName,true));
+		Filter filter = new Filter(parser.parseAllFiles(tagger));
 		parseTimer.stop();
 		SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
 		

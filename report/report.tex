@@ -5,7 +5,7 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \author{Jonas Schouterden\\
-Jeroen Reinenberh}
+Jeroen Reinenbergh}
 \title{ATHENS Paris 2015\\
 Mining of Massive Datasets\\
 Report: Mining of Twitter Data}
@@ -17,7 +17,7 @@ This report specifies the results of mining a data from the social network Twitt
 
 \section{Task 1: Data Cleaning and Preprocessing}
 %data cleaning and preprocessing. You will be given a collection of raw data from Twitter in the JSON format. This data is usually quite noisy, for example there are many copies of a same tweet, while each tweet might contain text which is not relevant for our purposes. After cleaning the data, you will build a graph representing the co-occurrences of relevant \entities" in tweets.
-For the ATHENS course "Mining of massive data sets", we were asked to process and analyse previously extracted twitter data. This report serves its purpose by guiding the reader through the different steps that need to be taken to conquer this issue. 
+For the ATHENS course ``Mining of massive data sets", we were asked to process and analyse previously extracted twitter data. This report serves its purpose by guiding the reader through the different steps that need to be taken to conquer this issue. 
 \subsection{Pre-processing tweets}
 The provided data consisted of thousands of tweets that were partitioned according to their date and/or location (New York, Oscars, Paris January and Paris February). The format of the files in which they resided was JSON, for which an external java library was readily available to assist us with the parsing.\\
 
@@ -27,9 +27,9 @@ Once extracted from a file, only the user ID, tweet ID, text and hashtags of a t
 \item hashtags were simply treated as keywords themselves.
 \end{itemize}
 \subsection{Filtering keywords}
-It is not hard to see that some of those keywords can share certain semantic properties even though they all differ syntactically (and hence would be categorized as different keywords). A partial solution for this problem is to calculate the Levenshtein distance for these keywords and merge those that are close together. We decided to implement this partial solution by overriding the equals(Object) method in the respective keyword class with a call to the levenshteinDistance(String, String) method (\url{http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance}) while ensuring a maximum keyword distance of two.
+It is not hard to see that some of those keywords can share certain semantic properties even though they all differ syntactically (and hence would be categorized as different keywords). A partial solution for this problem is to calculate the Levenshtein distance for these keywords and merge those that are close together. We decided to implement this partial solution by overriding the \emph{equals(Object)} method in the respective keyword class with a call to the \emph{levenshteinDistance(String,String)} method (\url{http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance}) while ensuring a maximum keyword distance of two.
 \subsection{Building the graph}
-At the end of the pre-processing phase, a graph was built. This graph's vertex set consisted of all distinct (according to the equals() method discussed above) keywords extracted from different tweets (where tweets with the same set of hashtags were considered to be equal). Subsequently, an edge between two keywords was added to this graph if and only if these keywords appeared in the same tweet at least once. The weight of an edge was incremented every time an edge with the same vertices needed to be added while it was already present in the graph.
+At the end of the pre-processing phase, a graph was built. This graph's vertex set consisted of all distinct (according to the \emph{equals()} method discussed above) keywords extracted from different tweets (where tweets with the same set of hashtags were considered to be equal). Subsequently, an edge between two keywords was added to this graph if and only if these keywords appeared in the same tweet at least once. The weight of an edge was incremented every time an edge with the same vertices needed to be added while it was already present in the graph.
 \section{Task 2: Finding Dense Subgraphs}
 % extracting dense subgraphs from the latter graph. To this end, you should adapt the sequential greedy algorithm for nding dense subgraphs (which we presented during our class on Wednesday) so as to 1) deal with weighted graphs, 2) nd \small" subgraphs 3)nding more than one dense subgraph, 4) deal with large graph, in particular try to give a linear implementation (in the size of the input) of the algorithm.
 
@@ -95,6 +95,6 @@ For the New York data set, the extracted densest subgraphs show us that there wa
 
 \subsection{Oscars}
 
-When looking at the vertices of the densest subgraphs of the Oscars data set, one can derive several things. It is straightforward that most of the hashtags included information about the Academy Awards and the Red Carpet show that preceded it. For instance, the movie "Birdman" was the big winner of the evening, whereas "Ida" was voted as best foreign language movie. Also included in the hashtag set was a reference to Eddie Redmayne, who won the oscar for best male lead.
+When looking at the vertices of the densest subgraphs of the Oscars data set, one can derive several things. It is straightforward that most of the hashtags included information about the Academy Awards and the Red Carpet show that preceded it. For instance, the movie ``Birdman" was the big winner of the evening, whereas ``Ida" was voted as best foreign language movie. Also included in the hashtag set was a reference to Eddie Redmayne, who won the oscar for best male lead.
 
 \end{document}

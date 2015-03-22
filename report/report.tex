@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{report}
+\documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -13,6 +13,46 @@ Report: Mining of Twitter Data}
 \begin{abstract}
 This report specifies the results of mining a data from the social network Twitter. It is a solution to the third assignment of the course \emph{Mining of Massive Datasets} during \emph{ATHENS 2015} in Paris.
 \end{abstract}
+
+\section{Task 1: Data Cleaning and Preprocessing}
+%data cleaning and preprocessing. You will be given a collection of raw data from Twitter in the JSON format. This data is usually quite noisy, for example there are many copies of a same tweet, while each tweet might contain text which is not relevant for our purposes. After cleaning the data, you will build a graph representing the co-occurrences of relevant \entities" in tweets.
+
+\section{Task 2: Finding Dense Subgraphs}
+% extracting dense subgraphs from the latter graph. To this end, you should adapt the sequential greedy algorithm for nding dense subgraphs (which we presented during our class on Wednesday) so as to 1) deal with weighted graphs, 2) nd \small" subgraphs 3)nding more than one dense subgraph, 4) deal with large graph, in particular try to give a linear implementation (in the size of the input) of the algorithm.
+
+For the second part of the exercises, we have implemented the algorithm as seen in the lecture.
+For the representation and manipulation of the information obtained from the preprocessing phase as a graph, we used the \emph{JGraphT} library.
+
+\subsection{The density of a graph and degree of vertices}
+
+Since the graphs of the exercise are undirected weighted graphs, the definitions used for the density of a graph and the degree of a vertex are not the same as for undirected unweighted graphs.
+
+\subsubsection{The DensityManager interface}
+The \emph{DensityManager} interface is designed to make the software architecture more adaptable. Classes implementing this interface can define their own definitions of the degree of a vertex and the density of a graph. The interface defines two methods. The \emph{getDensity} method takes a Graph object as an argument and returns the density of that graph. The \emph{getDegreeOfVertex} method takes a Graph and a Vertex of that Graph and returns the degree of that vertex in the graph.\\
+The class \emph{SubgraphManager} defines the methods that implement the densest subgraph algorithm. They take an object of a class implementing the \emph{DensityManager} interface, thus providing adaptability if another definition of degree or density should be necessary.
+\subsubsection{The WeightedDensityManager class}
+Objects of \emph{WeightedDensityManager} class calculate the specific density and degree necessary by the assignment. The software solution uses unidirectional weighted graphs. The following definitions of degree density are therefore implemented:
+\begin{itemize}
+	\item  The \emph{weighted degree} of a node is equal to the sum of the weights of the edges incident to that node.:
+$$\delta_{G}(v)=\sum_i{w_{i}}$$
+where $w_i$ are the weights of the edges incoming in the node $v$	in graph G. \item The \emph{weighted density} of the graph is equal to the sum of all the weights of the edges in the graph, divided by the number of vertices in the graph:
+$$\rho(G)=\dfrac{\sum_i{w_{i}}}{\left|E_G\right|}$$
+where $w_i$ are the weights all the edges in graph G. 	
+\end{itemize}
+The graph of the data is analysed using these by creating an object of this class and passing its reference to the method which generates the densest subgraphs.
+
+\subsection{Implementation of the Densest Subgraph Algorithm}
+The class \emph{SubgraphManager} implements the Densest Subgraph algorithm as seen in the lecture. The most important method of the class is \emph{getDensestSubgraphs}. It takes as input the graph for which densest subgraphs must be found and an object implementing the DensityManager interface.
+\subsubsection{Dealing with multiple dense subgraphs}
+For storing more than one densest subgraph, an object of the SubgraphManager class uses a CircularFifoQueue. This is a queue with a fixed max size which replaces its elements when its full. The queue is circular First-In, First-Out, so when it is full and a new element is added, the oldest element in the queue will be removed. The amount of densest subgraphs that a SubgraphManager will store in its queue can be specified at object construction. The implementation of this queue is taken from the Apache Commons Collections library.
+\subsubsection{A thorough overview of the implementation of \emph{getDensestSubgraphs}}
+The method uses two of its object variables as temporary variables. The first is \emph{tempGraph}. It is initialized with a shallow clone of the input graph. This is the graph of which the vertices with the lowest degree are pruned in each iteration of the main while loop. The second object variable (\emph{tempDensestSubgraph}) contains the graph with the highest density found up until that moment in time.\\
+Another important data structure in is the TreeMap 
+
+
+
+\section{Task 3: Data Analysis}
+%analyze the dense subgraphs tha t you found so as to nd \interesting" information.
 
 
 

@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{hyperref}
 \author{Jonas Schouterden\\
 Jeroen Reinenberh}
 \title{ATHENS Paris 2015\\
@@ -16,7 +17,19 @@ This report specifies the results of mining a data from the social network Twitt
 
 \section{Task 1: Data Cleaning and Preprocessing}
 %data cleaning and preprocessing. You will be given a collection of raw data from Twitter in the JSON format. This data is usually quite noisy, for example there are many copies of a same tweet, while each tweet might contain text which is not relevant for our purposes. After cleaning the data, you will build a graph representing the co-occurrences of relevant \entities" in tweets.
+For the ATHENS course "Mining of massive data sets", we were asked to process and analyse previously extracted twitter data. This report serves its purpose by guiding the reader through the different steps that need to be taken to conquer this issue. 
+\subsection{Pre-processing tweets}
+The provided data consisted of thousands of tweets that were partitioned according to their date and/or location (New York, Oscars, Paris January and Paris February). The format of the files in which they resided was JSON, for which an external java library was readily available to assist us with the parsing.\\
 
+Once extracted from a file, only the user ID, tweet ID, text and hashtags of a tweet were considered relevant for further analysis. The user ID and tweet ID were needed to extract relevant user and tweet data from the obtained results, whereas the text and hashtags were converted to keywords in the following way:
+\begin{itemize}
+\item text was split into words that were subsequently tagged by a trained, language specific tagger that resides in an external Stanford library for natural language processing (\url{http://nlp.stanford.edu/software/tagger.shtml}). Out of all these tagged words, only nouns, verbs and adjectives were used as keywords.
+\item hashtags were simply treated as keywords themselves.
+\end{itemize}
+\subsection{Filtering keywords}
+It is not hard to see that some of those keywords can share certain semantic properties even though they all differ syntactically (and hence would be categorized as different keywords). A partial solution for this problem is to calculate the Levenshtein distance for these keywords and merge those that are close together. We decided to implement this partial solution by overriding the equals(Object) method in the respective keyword class with a call to the levenshteinDistance(String, String) method (\url{http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance}) while ensuring a maximum keyword distance of 2.
+\subsection{Building the graph}
+At the end of the pre-processing phase, a graph was built. This graph's vertex set consisted of all distinct (according to the equals() method discussed above) keywords extracted from different tweets (where tweets with the same set of hashtags were considered to be equal). Subsequently, an edge between two keywords was added to this graph if and only if these keywords appeared in the same tweet at least once. The weight of an edge was incremented every time an edge with the same vertices needed to be added while it was already present in the graph.
 \section{Task 2: Finding Dense Subgraphs}
 % extracting dense subgraphs from the latter graph. To this end, you should adapt the sequential greedy algorithm for nding dense subgraphs (which we presented during our class on Wednesday) so as to 1) deal with weighted graphs, 2) nd \small" subgraphs 3)nding more than one dense subgraph, 4) deal with large graph, in particular try to give a linear implementation (in the size of the input) of the algorithm.
 
@@ -47,13 +60,26 @@ The class \emph{SubgraphManager} implements the Densest Subgraph algorithm as se
 For storing more than one densest subgraph, an object of the SubgraphManager class uses a CircularFifoQueue. This is a queue with a fixed max size which replaces its elements when its full. The queue is circular First-In, First-Out, so when it is full and a new element is added, the oldest element in the queue will be removed. The amount of densest subgraphs that a SubgraphManager will store in its queue can be specified at object construction. The implementation of this queue is taken from the Apache Commons Collections library.
 \subsubsection{A thorough overview of the implementation of \emph{getDensestSubgraphs}}
 The method uses two of its object variables as temporary variables. The first is \emph{tempGraph}. It is initialized with a shallow clone of the input graph. This is the graph of which the vertices with the lowest degree are pruned in each iteration of the main while loop. The second object variable (\emph{tempDensestSubgraph}) contains the graph with the highest density found up until that moment in time.\\
-Another important data structure in is the TreeMap 
 
+Another important data structure in is the TreeMap \emph{degreeVerticesMap}. It contains a key-value mapping, with as key the value of a vertex,  and as corresponding value the set of vertices having that is initiated with the vertices of the input graph. When vertices are pruned from the graph, the degrees of the remaining vertices might change, so this data structure will have to be updated. The reason for using an TreeMap as data strucuture, is because it is a sorted map. This means that when the method wants to look for the vertices with the smallest degree, it can just as the map for its first key-value entry, as the first key is equal to the lowest degree in the remaining graph.\\
+
+After these initial steps, the \emph{while loop} is entered. In each iteration, the following steps take place:
+\begin{itemize}
+\item The map is queried for the lowest degree it contains.
+\item The nodes with the lowest degree are queried from the map using the obtained lowest degree. These are the nodes that the method will remove in this iteration.
+\item The nodes neighbouring to the vertices with the lowest degree are queried. These are the nodes whose degree will change when removing the nodes with the lowest degree from the graph. They need to be known before pruning the graph, since after the graph has been pruned, we cannot use their new degrees to find them in the key-value map, where they are stored with their old degree.
+\item The nodes with the smallest degree are removed from the key-value map. This means that the first entry from the sorted map gets deleted.
+\item The neighboring nodes are removed from the key-value map. Note that the neighbour of a node with the smallest degree might also have that smallest degree. This means that this neighbour is also part of the set of nodes to be deleted from the graph. Since these nodes are already removed from the key-value map (not yet from the graph), only the neighbouring nodes with a degree not equal to the smallest degree are removed.
+\item The nodes with the smallest degree are pruned from the graph.
+\item The neighbouring nodes now have a new degree in the graph (if they weren't part of the removed vertices). They are put back into the key-value map using their new degrees as their key.
+\item If the density of the newly obtained temporary graph is larger than the density of the previous densest subgraph, that graph is the new temporary densest subgraph and is put into the circular fifo queue.
+\end{itemize}
+The while-loop continues until there are no nodes left in the temporary subgraph. The method then returns the circular fifo queue, which now contains an amount of densest subgraphs equal to the set size of the queue.
 
 
 \section{Task 3: Data Analysis}
 %analyze the dense subgraphs tha t you found so as to nd \interesting" information.
-
+Because of the excessive amount of time it took to parse the content of all tweets using the Stanford tagger mentioned above, we only tested this approach on one of the provided files. For the actual analysis of the four data sets, we relied upon the simpler approach of hashtag analysis without considering the content of the tweet text. Nevertheless, this approach has been able to provide us with reasonably useful results too. The results for every one of the four data sets will now be discussed briefly.
 
 
 

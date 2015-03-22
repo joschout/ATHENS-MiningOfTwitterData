@@ -40,12 +40,12 @@ public class Tweet {
 		if(this.getClass() != other.getClass()){
 			throw new UnsupportedOperationException("Tweets cannot be compared to other objects through \"equals()\" method");
 		}
-		return (this.keywords.equals(((Tweet)other).keywords));
+		return (this.hashtags.equals(((Tweet)other).hashtags));
 	}
 	
 	@Override
 	public int hashCode(){
-		return this.keywords.hashCode();
+		return this.hashtags.hashCode();
 	}
 	
 	private List<KeyWord> getKeyWords(List<KeyWord> alreadyCreatedKeywords){

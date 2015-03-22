@@ -19,14 +19,17 @@ public class Main {
 	public static void main(String[] args) throws IOException{
 		//testGraph();
 		//testStanfordLib();
-		testGraphMultiplePrints();
+		testGraphMultiplePrints("NY", false);
+		testGraphMultiplePrints("Oscars", false);
+		testGraphMultiplePrints("ParisFeb", false);
+		testGraphMultiplePrints("ParisJan", false);
 	}
 	
 	private static void testStanfordLib() throws IOException{
 		JsonParser parser = new JsonParser("data");
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
-		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23", true));
+		Filter filter = new Filter(parser.parseFile("NewYork-2015-2-23", false));
 		parseTimer.stop();
 	}
 
@@ -60,11 +63,11 @@ public class Main {
 //		}	
 //	}
 	
-	private static void testGraphMultiplePrints() throws IOException{
-		JsonParser parser = new JsonParser("data//Oscars");
+	private static void testGraphMultiplePrints(String fileName, boolean tagger) throws IOException{
+		JsonParser parser = new JsonParser("data/" + fileName);
 		Timer parseTimer = new Timer("parsing the files");
 		parseTimer.start();
-		Filter filter = new Filter(parser.parseAllFiles(false));
+		Filter filter = new Filter(parser.parseAllFiles(tagger));
 		parseTimer.stop();
 		SimpleWeightedGraph<KeyWord, DefaultWeightedEdge>  graph = filter.createWeightedGraph();
 		
@@ -87,7 +90,7 @@ public class Main {
 //			System.out.println("//=== End of new temp densest subgraph ===//" +"\n");
 //		}
 		
-		subgraphManager.printSubgraphsToFile(densityManager, "outputfile.txt");
+		subgraphManager.printSubgraphsToFile(densityManager, fileName + ".txt");
 		
 	}
 	

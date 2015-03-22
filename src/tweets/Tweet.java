@@ -1,6 +1,7 @@
 package tweets;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -21,7 +22,7 @@ public class Tweet {
 		this.tweetId = tweetId;
 		this.userId = userId;
 		this.text = text;
-		this.hashtags = hashtags;
+		this.hashtags = new ArrayList<HashTag>(new TreeSet<HashTag>(hashtags));
 		this.keywords = getKeyWords(alreadyCreatedKeywords);
 	}
 	
@@ -40,12 +41,12 @@ public class Tweet {
 		if(this.getClass() != other.getClass()){
 			throw new UnsupportedOperationException("Tweets cannot be compared to other objects through \"equals()\" method");
 		}
-		return (this.keywords.equals(((Tweet)other).keywords));
+		return (this.hashtags.equals(((Tweet)other).hashtags));
 	}
 	
 	@Override
 	public int hashCode(){
-		return this.keywords.hashCode();
+		return this.hashtags.hashCode();
 	}
 	
 	private List<KeyWord> getKeyWords(List<KeyWord> alreadyCreatedKeywords){
@@ -77,36 +78,6 @@ public class Tweet {
 			keywords.add(keyword);
 		}
 		return new ArrayList<KeyWord>(keywords);
-	}
-	
-	private boolean approximatelyEqual(KeyWord first, KeyWord second){
-		return false;
-	}
-	
-	private int hammingDistance(String firstWord, String secondWord){
-		int differenceInLength = firstWord.length() - secondWord.length();
-		if(differenceInLength == 0){
-			return hammingDistanceEqualLength(firstWord, secondWord);
-		}
-		else if(differenceInLength == 1){
-			return Math.min(hammingDistanceEqualLength(" " + firstWord, secondWord), hammingDistanceEqualLength(firstWord + " ", secondWord));
-		}
-		else if(differenceInLength == 2){
-			return Math.min(Math.min(hammingDistanceEqualLength("  " + firstWord, secondWord), hammingDistanceEqualLength(" " + firstWord + " ", secondWord)),hammingDistanceEqualLength(firstWord + "  ", secondWord));
-		}
-		else return Integer.MAX_VALUE;
-	}
-	
-	private int hammingDistanceEqualLength(String firstWord, String secondWord){
-		if(firstWord.length() != secondWord.length())
-			throw new UnsupportedOperationException("Words are not of equal length!");
-		int counter = 0;
-		for (int i = 0; i < firstWord.length(); i++) {
-		    if (firstWord.charAt(i) != secondWord.charAt(i)) {
-		        ++counter;
-		    }
-		}
-		return counter;
 	}
 	
 }

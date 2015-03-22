@@ -27,7 +27,7 @@ Once extracted from a file, only the user ID, tweet ID, text and hashtags of a t
 \item hashtags were simply treated as keywords themselves.
 \end{itemize}
 \subsection{Filtering keywords}
-It is not hard to see that some of those keywords can share certain semantic properties even though they all differ syntactically (and hence would be categorized as different keywords). A partial solution for this problem is to calculate the Levenshtein distance for these keywords and merge those that are close together. We decided to implement this partial solution by overriding the equals(Object) method in the respective keyword class with a call to the levenshteinDistance(String, String) method (\url{http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance}) while ensuring a maximum keyword distance of 2.
+It is not hard to see that some of those keywords can share certain semantic properties even though they all differ syntactically (and hence would be categorized as different keywords). A partial solution for this problem is to calculate the Levenshtein distance for these keywords and merge those that are close together. We decided to implement this partial solution by overriding the equals(Object) method in the respective keyword class with a call to the levenshteinDistance(String, String) method (\url{http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance}) while ensuring a maximum keyword distance of two.
 \subsection{Building the graph}
 At the end of the pre-processing phase, a graph was built. This graph's vertex set consisted of all distinct (according to the equals() method discussed above) keywords extracted from different tweets (where tweets with the same set of hashtags were considered to be equal). Subsequently, an edge between two keywords was added to this graph if and only if these keywords appeared in the same tweet at least once. The weight of an edge was incremented every time an edge with the same vertices needed to be added while it was already present in the graph.
 \section{Task 2: Finding Dense Subgraphs}
@@ -78,9 +78,22 @@ The while-loop continues until there are no nodes left in the temporary subgraph
 
 
 \section{Task 3: Data Analysis}
-%analyze the dense subgraphs tha t you found so as to nd \interesting" information.
+
 Because of the excessive amount of time it took to parse the content of all tweets using the Stanford tagger mentioned above, we only tested this approach on one of the provided files. For the actual analysis of the four data sets, we relied upon the simpler approach of hashtag analysis without considering the content of the tweet text. Nevertheless, this approach has been able to provide us with reasonably useful results too. The results for every one of the four data sets will now be discussed briefly.
 
+\subsection{Paris January}
+
+In the densest subgraphs that resulted from the processing of all Paris tweets in January, one can clearly recognize the events that shook Paris during that month. The most important vertex set consists of hashtags that refer to the terrorist attack at Charlie Hebdo, a satirical newspaper. In particular, one of them refers to the republican march that was a reaction of the people to this horrific event, whereas several others referred to the empathy that those people tried to express by unifying themselves with the victims of the attack.
+
+\subsection{Paris February}
+
+The densest subgraphs of this data set teach us that the twitter community in Paris was mainly tweeting about their (travel) visits to important cultural monuments like the Eiffel tower, Versailles, the Arc de Triomphe and the Notre Dame. One of the hashtags that also appeared often in those subgraphs denoted a reference to the VSCO Cam, some kind of camera with which apparently a lot of people took pictures at that time in Paris.
+
+\subsection{New York}
+
+For the New York data set, the extracted densest subgraphs show us that there was an NBA game in New York during the period of tweet collection. Other hashtags that are part of the most popular vertex set refer to the social recruiting company that requires employers to tweet about possible vacancies within their company. The rest of the vertex set is assumed to have been tweeted by tourists and to refer to the most touristic places of the city, including Manhattan, Brooklyn and the Big Apple.
+
+\subsection{Oscars}
 
 
 \end{document}

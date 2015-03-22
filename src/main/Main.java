@@ -19,10 +19,10 @@ public class Main {
 	public static void main(String[] args) throws IOException{
 		//testGraph();
 		//testStanfordLib();
-		testGraphMultiplePrints("NY", true);
-		testGraphMultiplePrints("Oscars", true);
-		testGraphMultiplePrints("ParisFeb", true);
-		testGraphMultiplePrints("ParisJan", true);
+		testGraphMultiplePrints("NY", false);
+		testGraphMultiplePrints("Oscars", false);
+		testGraphMultiplePrints("ParisFeb", false);
+		testGraphMultiplePrints("ParisJan", false);
 	}
 	
 	private static void testStanfordLib() throws IOException{

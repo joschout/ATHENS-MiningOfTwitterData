@@ -18,11 +18,11 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException{
 		//testGraph();
-		//testStanfordLib();
-		testGraphMultiplePrints("NY", false);
-		testGraphMultiplePrints("Oscars", false);
-		testGraphMultiplePrints("ParisFeb", false);
-		testGraphMultiplePrints("ParisJan", false);
+//		testStanfordLib();
+//		testGraphMultiplePrints("NY", false);
+//		testGraphMultiplePrints("Oscars", false);
+		testGraphMultiplePrints("ParisSearchFeb", false);
+//		testGraphMultiplePrints("ParisSearchJan", false);
 	}
 	
 	private static void testStanfordLib() throws IOException{

@@ -47,8 +47,21 @@ The class \emph{SubgraphManager} implements the Densest Subgraph algorithm as se
 For storing more than one densest subgraph, an object of the SubgraphManager class uses a CircularFifoQueue. This is a queue with a fixed max size which replaces its elements when its full. The queue is circular First-In, First-Out, so when it is full and a new element is added, the oldest element in the queue will be removed. The amount of densest subgraphs that a SubgraphManager will store in its queue can be specified at object construction. The implementation of this queue is taken from the Apache Commons Collections library.
 \subsubsection{A thorough overview of the implementation of \emph{getDensestSubgraphs}}
 The method uses two of its object variables as temporary variables. The first is \emph{tempGraph}. It is initialized with a shallow clone of the input graph. This is the graph of which the vertices with the lowest degree are pruned in each iteration of the main while loop. The second object variable (\emph{tempDensestSubgraph}) contains the graph with the highest density found up until that moment in time.\\
-Another important data structure in is the TreeMap 
 
+Another important data structure in is the TreeMap \emph{degreeVerticesMap}. It contains a key-value mapping, with as key the value of a vertex,  and as corresponding value the set of vertices having that is initiated with the vertices of the input graph. When vertices are pruned from the graph, the degrees of the remaining vertices might change, so this data structure will have to be updated. The reason for using an TreeMap as data strucuture, is because it is a sorted map. This means that when the method wants to look for the vertices with the smallest degree, it can just as the map for its first key-value entry, as the first key is equal to the lowest degree in the remaining graph.\\
+
+After these initial steps, the while loop is entered. In each iteration, the following steps take place:
+\begin{itemize}
+\item The map is queried for the lowest degree it contains.
+\item The nodes with the lowest degree are queried from the map using the obtained lowest degree. These are the nodes that the method will remove in this iteration.
+\item The nodes neighbouring to the vertices with the lowest degree are queried. These are the nodes whose degree will change when removing the nodes with the lowest degree from the graph. They need to be known before pruning the graph, since after the graph has been pruned, we cannot use their new degrees to find them in the key-value map, where they are stored with their old degree.
+\item The nodes with the smallest degree are removed from the key-value map. This means that the first entry from the sorted map gets deleted.
+\item The neighboring nodes are removed from the key-value map. Note that the neighbour of a node with the smallest degree might also have that smallest degree. This means that this neighbour is also part of the set of nodes to be deleted from the graph. Since these nodes are already removed from the key-value map (not yet from the graph), only the neighbouring nodes with a degree not equal to the smallest degree are removed.
+\item The nodes with the smallest degree are pruned from the graph.
+\item The neighbouring nodes now have a new degree in the graph (if they weren't part of the removed vertices). They are put back into the key-value map using their new degrees as their key.
+\item If the density of the newly obtained temporary graph is larger than the density of the previous densest subgraph, that graph is the new temporary densest subgraph and is put into the circular fifo queue.
+\end{itemize}
+The while-loop continues until there are no nodes left in the temporary subgraph. The method then returns the circular fifo queue, which now contains an amount of densest subgraphs equal to the set size of the queue.
 
 
 \section{Task 3: Data Analysis}
